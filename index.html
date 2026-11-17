@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="es-MX" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plantilla de Negocio</title>
+  <meta name="description" content="Diagnóstico computarizado, afinaciones, frenos y mecánica general con garantía por escrito. Cotiza rápido por WhatsApp." />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. VARIABLES CSS Y SISTEMA DE TEMAS (CLARO Y OSCURO)
+       ========================================================================== */
+    :root {
+      /* Colores principales de marca (Modificables desde JS o aquí) */
+      --primary: #f97316;          /* Naranja/Ámbar vibrante (Urgencia y acción) */
+      --primary-hover: #ea580c;
+      --primary-soft: rgba(249, 115, 22, 0.12);
+
+      /* Tokens Semánticos - MODO OSCURO POR DEFECTO */
+      --bg-primary: #0b0f19;       /* Fondo principal profundo */
+      --bg-secondary: #111827;     /* Secciones alternas */
+      --card-bg: #1e293b;          /* Tarjetas elevadas */
+      --card-bg-hover: #263349;
+      --card-gradient: linear-gradient(145deg, #1e293b, #131c2e);
+      --metric-bg: rgba(11, 15, 25, 0.55);
+      --navbar-bg: rgba(11, 15, 25, 0.85);
+      --hero-bg: radial-gradient(circle at 85% 20%, rgba(249, 115, 22, 0.14) 0%, transparent 45%),
+                 radial-gradient(circle at 15% 80%, rgba(37, 211, 102, 0.08) 0%, transparent 40%),
+                 #0b0f19;
+      --input-bg: #0b0f19;
+      --footer-bg: #070b14;
+
+      /* Textos */
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-inverse: #0f172a;
+
+      /* Acentos funcionales */
+      --whatsapp: #25d366;
+      --whatsapp-hover: #1ebe5d;
+      --star: #fbbf24;
+      --success: #10b981;
+      --danger: #ef4444;
+
+      /* Vista previa WhatsApp (Modo Oscuro) */
+      --wa-box-bg: #0b141a;
+      --wa-bubble-bg: #005c4b;
+      --wa-bubble-text: #e9edef;
+
+      /* Bordes y Sombras */
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 25px rgba(249, 115, 22, 0.25);
+      --map-filter: invert(90%) hue-rotate(180deg) contrast(95%);
+
+      /* Tipografía y Radios */
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.875rem;
+      --radius-lg: 1.25rem;
+      --radius-full: 9999px;
+
+      /* Transiciones */
+      --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Tokens Semánticos - MODO CLARO */
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --card-bg: #ffffff;
+      --card-bg-hover: #f1f5f9;
+      --card-gradient: linear-gradient(145deg, #ffffff, #f8fafc);
+      --metric-bg: #f1f5f9;
+      --navbar-bg: rgba(255, 255, 255, 0.9);
+      --hero-bg: radial-gradient(circle at 85% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 45%),
+                 radial-gradient(circle at 15% 80%, rgba(37, 211, 102, 0.06) 0%, transparent 40%),
+                 #ffffff;
+      --input-bg: #f8fafc;
+      --footer-bg: #f1f5f9;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+
+      /* Vista previa WhatsApp (Modo Claro) */
+      --wa-box-bg: #efeae2;
+      --wa-bubble-bg: #d9fdd3;
+      --wa-bubble-text: #111b21;
+
+      --border-color: rgba(15, 23, 42, 0.08);
+      --border-strong: rgba(15, 23, 42, 0.15);
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 18px 30px -5px rgba(15, 23, 42, 0.08);
+      --map-filter: none;
+    }
+
+    /* ==========================================================================
+       2. RESET Y ESTILOS BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-alt {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Animaciones de aparición al hacer Scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       3. COMPONENTES REUTILIZABLES (BOTONES, BADGES, ENCABEZADOS)
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background-color: var(--whatsapp);
+      color: #052e16;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+    }
+
+    .btn-whatsapp:hover {
+      background-color: var(--whatsapp-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background-color: rgba(128, 128, 128, 0.06);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(128, 128, 128, 0.14);
+      border-color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* Botón Icono para Tema Claro/Oscuro */
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--card-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.85rem, 4vw, 2.65rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    /* ==========================================================================
+       4. BARRA DE NAVEGACIÓN STICKY
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: var(--navbar-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.85rem 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary), #fb923c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.05rem;
+      line-height: 1.1;
+      color: var(--text-primary);
+    }
+
+    .brand-city {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* Indicador de estado en tiempo real (Abierto / Cerrado) */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .status-pill.closed {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: currentColor;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.25); }
+    }
+
+    @media (min-width: 900px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION DE ALTA CONVERSIÓN
+       ========================================================================== */
+    .hero {
+      padding: 4.5rem 0 5.5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--hero-bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-strong);
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .google-stars {
+      color: var(--star);
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 580px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta-group .btn {
+      flex: 1 1 auto;
+    }
+
+    @media (min-width: 540px) {
+      .hero-cta-group .btn {
+        flex: 0 0 auto;
+      }
+    }
+
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .trust-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Tarjeta Visual Derecha del Hero */
+    .hero-card {
+      background: var(--card-gradient);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius-lg);
+      padding: 1px;
+      background: linear-gradient(135deg, var(--primary), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .live-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .metric-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .metric-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      background: var(--metric-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .metric-num {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      min-width: 48px;
+    }
+
+    .metric-info h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .metric-info p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       6. SECCIÓN DE SERVICIOS INTERACTIVA
+       ========================================================================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .service-card:hover {
+      background: var(--card-bg-hover);
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .service-tag {
+      font-size: 0.78rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       7. COTIZADOR / AGENDADOR RÁPIDO INTERACTIVO (JS)
+       ========================================================================== */
+    .quote-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      background: var(--card-gradient);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (min-width: 900px) {
+      .quote-wrapper {
+        grid-template-columns: 1.1fr 0.9fr;
+        padding: 3rem;
+      }
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--input-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+
+    /* Vista previa del mensaje de WhatsApp en vivo (Adaptable a Claro y Oscuro) */
+    .whatsapp-preview-box {
+      background: var(--wa-box-bg);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .wa-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .wa-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--whatsapp);
+      color: #052e16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .wa-bubble {
+      background: var(--wa-bubble-bg);
+      color: var(--wa-bubble-text);
+      padding: 1rem 1.15rem;
+      border-radius: 0.75rem;
+      border-top-right-radius: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      white-space: pre-line;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ==========================================================================
+       8. RESEÑAS ESTILO GOOGLE MAPS
+       ========================================================================== */
+    .reviews-summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .rating-big {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rating-score {
+      font-family: var(--font-heading);
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .reviewer-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .verified-badge {
+      font-size: 0.72rem;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 600;
+    }
+
+    .review-text {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    /* ==========================================================================
+       9. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO)
+       ========================================================================== */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item.active {
+      border-color: var(--primary);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      padding: 0 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 240px;
+      padding-bottom: 1.35rem;
+    }
+
+    /* ==========================================================================
+       10. UBICACIÓN Y CONTACTO
+       ========================================================================== */
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .location-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+      }
+    }
+
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-block {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .info-block-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hours-table {
+      width: 100%;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .hours-table td {
+      padding: 0.25rem 0;
+    }
+
+    .hours-table td:last-child {
+      text-align: right;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .map-frame {
+      width: 100%;
+      min-height: 360px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      border: 0;
+      filter: var(--map-filter);
+      transition: filter 0.3s ease;
+    }
+
+    /* ==========================================================================
+       11. FOOTER Y BOTÓN FLOTANTE DE WHATSAPP
+       ========================================================================== */
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .floating-wa {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 950;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .wa-tooltip {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-lg);
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .wa-tooltip {
+        display: block;
+      }
+    }
+
+    .wa-fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--whatsapp);
+      color: #052e16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .wa-fab:hover {
+      transform: scale(1.08);
+    }
+
+    .wa-fab::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--whatsapp);
+      animation: ripple 2s infinite;
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.35); opacity: 0; }
+    }
+
+    /* ==========================================================================
+       12. PANEL FLOTANTE DE MODO DEMO ("CAMALEÓN" PARA EL DESARROLLADOR)
+       ========================================================================== */
+    .demo-panel-wrapper {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      z-index: 960;
+    }
+
+    .demo-toggle-btn {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+    }
+
+    .demo-toggle-btn:hover {
+      border-color: var(--primary);
+    }
+
+    .demo-drawer {
+      position: absolute;
+      bottom: 3.25rem;
+      left: 0;
+      width: 315px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      gap: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    .demo-drawer.open {
+      display: flex;
+    }
+
+    .demo-drawer h4 {
+      font-size: 0.9rem;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .demo-drawer label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+
+    .demo-drawer input[type="text"], .demo-drawer select {
+      width: 100%;
+      padding: 0.5rem 0.7rem;
+      border-radius: var(--radius-sm);
+      background: var(--input-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+    }
+
+    /* Switch segmentado Claro / Oscuro en Panel Demo */
+    .theme-segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--input-bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 0.2rem;
+      gap: 0.2rem;
+    }
+
+    .theme-seg-btn {
+      padding: 0.4rem 0.5rem;
+      border: none;
+      border-radius: calc(var(--radius-sm) - 2px);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: var(--transition);
+    }
+
+    .theme-seg-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .color-swatches {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .swatch {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .swatch:hover {
+      transform: scale(1.12);
+    }
+
+    .color-picker-input {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN STICKY
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="brand">
+        <div class="brand-icon" id="nav-logo-initials">SM</div>
+        <div class="brand-text">
+          <span class="brand-name" data-bind="businessName"></span>
+          <span class="brand-city" data-bind="city">Aguascalientes, Ags.</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#cotizador">Cotizar Cita</a>
+        <a href="#resenas">Reseñas</a>
+        <a href="#preguntas">Dudas</a>
+        <a href="#ubicacion">Ubicación</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-pill" id="business-status-pill">
+          <span class="status-dot"></span>
+          <span id="business-status-text">Abierto ahora</span>
+        </div>
+
+        <!-- Botón de Cambio de Tema (Sol / Luna) -->
+        <button type="button" class="theme-toggle-btn" id="header-theme-toggle" aria-label="Cambiar entre modo claro y oscuro" title="Cambiar tema">
+          <!-- Icono dinámico cargado por JS -->
+        </button>
+
+        <a href="#" class="btn btn-whatsapp btn-sm js-wa-direct" data-msg="Hola, vi su página web y me gustaría pedir información.">
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO SECTION DE ALTA CONVERSIÓN
+       ======================================================================== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="google-badge">
+          <span class="google-stars">★★★★★</span>
+          <span data-bind="ratingBadge">4.9 en Google Maps • +95 clientes satisfechos</span>
+        </div>
+
+        <h1>
+          Tu auto en manos expertas: <span data-bind="heroHighlight">diagnóstico honesto</span> y reparación garantizada
+        </h1>
+
+        <p class="hero-subtitle" data-bind="heroSubtitle">
+          Evita sorpresas y gastos innecesarios. En <strong data-bind="businessName">Tu negocio</strong> revisamos con equipo de última generación y te cotizamos directo por WhatsApp en minutos.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#cotizador" class="btn btn-primary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Cotizar por WhatsApp ahora
+          </a>
+          <a href="tel:+524490000000" class="btn btn-outline js-phone-link">
+            <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Llamar directo
+          </a>
+        </div>
+
+        <div class="trust-strip">
+          <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <span>Garantía por escrito</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">⚡</div>
+            <span>Atención el mismo día</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">🛡️</div>
+            <span>Refacciones originales</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta Resumen de Confianza -->
+      <div class="hero-card reveal">
+        <div class="hero-card-header">
+          <div>
+            <div class="hero-card-title">¿Por qué nos prefieren?</div>
+            <small style="color: var(--text-secondary);" data-bind="city">Aguascalientes, Ags.</small>
+          </div>
+          <span class="live-tag">Cita Rápida</span>
+        </div>
+
+        <div class="metric-list">
+          <div class="metric-row">
+            <div class="metric-num">100%</div>
+            <div class="metric-info">
+              <h4>Presupuesto antes de trabajar/h4>
+              <p>Te explicamos qué falla tiene y cuánto cuesta antes de iniciar cualquier trabajo.</p>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-num">4.9★</div>
+            <div class="metric-info">
+              <h4>Calificación real en Google</h4>
+              <p>Decenas de conductores locales nos recomiendan por nuestra honestidad y rapidez.</p>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-num">&lt;15m</div>
+            <div class="metric-info">
+              <h4>Respuesta inmediata por WhatsApp</h4>
+              <p>Envíanos los síntomas de tu vehículo y recibe orientación sin compromiso.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECCIÓN DE SERVICIOS INTERACTIVA
+       ======================================================================== -->
+  <section id="servicios" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Nuestros Servicios</span>
+        <h2>Soluciones completas y seguras</h2>
+        <p>Selecciona el servicio que necesitas y envíanos una cotización directa a nuestro WhatsApp con un solo clic.</p>
+      </div>
+
+      <div class="services-grid" id="services-container">
+        <!-- Renderizado dinámicamente desde JS para fácil personalización -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       COTIZADOR / AGENDADOR RÁPIDO INTERACTIVO (JS)
+       ======================================================================== -->
+  <section id="cotizador" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Cotizador Express</span>
+        <h2>Arma tu cotización en 30 segundos</h2>
+        <p>Completa estos datos y genera automáticamente tu mensaje listo para enviarlo por WhatsApp.</p>
+      </div>
+
+      <div class="quote-wrapper reveal">
+        <form id="quote-form" class="form-grid">
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="q-name">Tu Nombre</label>
+              <input type="text" id="q-name" class="form-control" placeholder="Ej. Carlos Hernández" required />
+            </div>
+            <div class="form-group">
+              <label for="q-service">Servicio que necesitas</label>
+              <select id="q-service" class="form-control">
+                <!-- Se llena con los servicios configurados -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label for="q-vehicle">Vehículo / Detalle (Marca, Modelo, Año)</label>
+              <input type="text" id="q-vehicle" class="form-control" placeholder="Ej. Nissan Versa 2019" />
+            </div>
+            <div class="form-group">
+              <label for="q-date">¿Cuándo te gustaría venir?</label>
+              <select id="q-date" class="form-control">
+                <option value="Hoy mismo (Urgente)">Hoy mismo (Urgente)</option>
+                <option value="Mañana por la mañana">Mañana por la mañana</option>
+                <option value="Mañana por la tarde">Mañana por la tarde</option>
+                <option value="Esta semana">Esta semana</option>
+                <option value="Solo busco cotización">Solo busco cotización</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="q-notes">¿Algún síntoma o comentario adicional? (Opcional)</label>
+            <input type="text" id="q-notes" class="form-control" placeholder="Ej. Prendió el testigo del motor o rechina al frenar" />
+          </div>
+
+          <button type="submit" class="btn btn-whatsapp" style="width: 100%; margin-top: 0.5rem; font-size: 1rem;">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+            Enviar Cotización por WhatsApp
+          </button>
+        </form>
+
+        <!-- Vista previa en tiempo real -->
+        <div class="whatsapp-preview-box">
+          <div>
+            <div class="wa-header">
+              <div class="wa-avatar">WA</div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.92rem;" data-bind="businessName">Tu negocio</div>
+                <div style="font-size: 0.75rem; color: var(--success); font-weight: 600;">● En línea • Vista previa del mensaje</div>
+              </div>
+            </div>
+            <div class="wa-bubble" id="wa-live-preview">
+              Hola, buen día. Me gustaría cotizar un servicio...
+            </div>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); text-align: center;">
+            Al presionar el botón se abrirá tu WhatsApp con este mensaje listo para enviar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       PRUEBA SOCIAL (RESEÑAS ESTILO GOOGLE MAPS)
+       ======================================================================== -->
+  <section id="resenas" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Opiniones Reales</span>
+        <h2>Lo que dicen nuestros clientes en Google</h2>
+        <p>Nuestra mejor publicidad es la recomendación de quienes ya nos confiaron su patrimonio.</p>
+      </div>
+
+      <div class="reviews-summary reveal">
+        <div class="rating-big">
+          <div class="rating-score">4.9</div>
+          <div>
+            <div class="google-stars" style="font-size: 1.2rem;">★★★★★</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Basado en reseñas verificadas de Google Maps</div>
+          </div>
+        </div>
+        <a href="#cotizador" class="btn btn-primary btn-sm">Agendar mi revisión</a>
+      </div>
+
+      <div class="reviews-grid" id="reviews-container">
+        <!-- Renderizado desde JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO)
+       ======================================================================== -->
+  <section id="preguntas" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Resolvemos tus dudas</span>
+        <h2>Preguntas Frecuentes</h2>
+        <p>Queremos que tengas total tranquilidad</p>
+      </div>
+
+      <div class="faq-list reveal" id="faq-container">
+        <!-- Renderizado desde JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       UBICACIÓN Y CONTACTO
+       ======================================================================== -->
+  <section id="ubicacion" class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Visítanos</span>
+        <h2>Ubicación y Horarios de Atención</h2>
+        <p>Estamos listos para atenderte. Puedes llegar directo o apartar tu lugar por WhatsApp.</p>
+      </div>
+
+      <div class="location-grid reveal">
+        <div class="info-card">
+          <div class="info-block">
+            <div class="info-block-icon">📍</div>
+            <div>
+              <h4>Dirección</h4>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; margin-top: 0.25rem;" data-bind="address">
+                Zona Centro / Norte, Aguascalientes, Ags.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-block-icon">🕒</div>
+            <div style="width: 100%;">
+              <h4>Horarios de Servicio</h4>
+              <table class="hours-table">
+                <tr>
+                  <td>Lunes a Viernes</td>
+                  <td>9:00 AM – 7:00 PM</td>
+                </tr>
+                <tr>
+                  <td>Sábados</td>
+                  <td>9:00 AM – 2:30 PM</td>
+                </tr>
+                <tr>
+                  <td>Domingos</td>
+                  <td>Cerrado (Solo urgencias)</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: auto;">
+            <a href="https://maps.google.com/?q=Servicio+Automotriz+Martinez+Aguascalientes" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1;">
+              Cómo llegar (Google Maps)
+            </a>
+            <a href="tel:+524490000000" class="btn btn-outline js-phone-link" style="flex: 1;">
+              Llamar por teléfono
+            </a>
+          </div>
+        </div>
+
+        <div class="map-frame">
+          <iframe
+            title="Mapa de ubicación"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Aguascalientes,Ags&output=embed">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer>
+    <div class="container">
+      <p>© <span id="current-year"></span> <strong data-bind="businessName" style="color: var(--text-primary);">Tu negocio</strong>. Todos los derechos reservados.</p>
+      <p style="font-size: 0.78rem; margin-top: 0.4rem;">Sitio web oficial optimizado para atención rápida en <span data-bind="city">Aguascalientes, Ags.</span></p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       BOTÓN FLOTANTE DE WHATSAPP
+       ======================================================================== -->
+  <div class="floating-wa">
+    <div class="wa-tooltip">¿Necesitas ayuda? Escríbenos</div>
+    <a href="#" class="wa-fab js-wa-direct" aria-label="Contactar por WhatsApp" data-msg="Hola, vengo de su página web y necesito información.">
+      <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+    </a>
+  </div>
+
+  <!-- ========================================================================
+       PANEL DE DEMOSTRACIÓN EN VIVO ("MODO CAMALEÓN" PARA EL DESARROLLADOR)
+       ======================================================================== -->
+  <div class="demo-panel-wrapper">
+    <div class="demo-drawer" id="demo-drawer">
+      <h4>
+        <span>🎨 Personalizar Demo</span>
+        <button type="button" id="close-demo-btn" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem;">✕</button>
+      </h4>
+      <div>
+        <label>Apariencia (Tema Visual)</label>
+        <div class="theme-segmented">
+          <button type="button" class="theme-seg-btn" id="demo-theme-light" data-set-theme="light">
+            ☀️ Claro
+          </button>
+          <button type="button" class="theme-seg-btn active" id="demo-theme-dark" data-set-theme="dark">
+            🌙 Oscuro
+          </button>
+        </div>
+      </div>
+      <div>
+        <label>Nombre del Negocio</label>
+        <input type="text" id="demo-name-input" value="Tu negocio" />
+      </div>
+      <div>
+        <label>WhatsApp (10 dígitos)</label>
+        <input type="text" id="demo-phone-input" value="449..." />
+      </div>
+      <div>
+        <label>Giro Rápido (Preset)</label>
+        <select id="demo-preset-select">
+          <option value="taller">Taller Automotriz</option>
+          <option value="cerrajeria">Cerrajería 24/7</option>
+        </select>
+      </div>
+      <div>
+        <label>Color Principal</label>
+        <div class="color-swatches">
+          <button type="button" class="swatch" style="background:#f97316;" data-color="#f97316" data-hover="#ea580c" title="Naranja Industrial"></button>
+          <button type="button" class="swatch" style="background:#3b82f6;" data-color="#3b82f6" data-hover="#2563eb" title="Azul Corporativo"></button>
+          <button type="button" class="swatch" style="background:#ef4444;" data-color="#ef4444" data-hover="#dc2626" title="Rojo Automotriz"></button>
+          <button type="button" class="swatch" style="background:#10b981;" data-color="#10b981" data-hover="#059669" title="Verde Esmeralda"></button>
+          <input type="color" id="demo-color-picker" class="color-picker-input" value="#f97316" title="Elegir cualquier color" />
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="demo-toggle-btn" id="demo-toggle-btn">
+      <span>⚡ Modo Demo</span>
+    </button>
+  </div>
+
+  <!-- ========================================================================
+       LÓGICA JAVASCRIPT (CONFIGURACIÓN CAMALEÓN + INTERACTIVIDAD)
+       ======================================================================== -->
+  <script>
+    /**
+     * ========================================================================
+     * CONFIGURACIÓN CENTRAL DEL NEGOCIO (EDITA ESTO EN 2 MINUTOS POR CLIENTE)
+     * ========================================================================
+     */
+    const SITE_CONFIG = {
+      defaultTheme: "dark", // 'dark' o 'light'
+      businessName: "Tu negocio",
+      city: "Aguascalientes, Ags.",
+      phoneDisplay: "449 123 4567",
+      whatsappNumber: "524491234567", // Código de país 52 + 10 dígitos
+      address: "Av. Convención / Zona Norte, Aguascalientes, Ags.",
+      ratingBadge: "4.9 ★ en Google Maps • +95 clientes satisfechos",
+      heroHighlight: "diagnóstico honesto",
+      heroSubtitle: "Evita sorpresas y gastos innecesarios. Revisamos tu vehículo con equipo de última generación y te cotizamos directo por WhatsApp en minutos.",
+      
+      // Horario de atención (Formato 24h: hora apertura, hora cierre)
+      schedule: {
+        weekdays: { open: 9, close: 19 }, // Lunes a Viernes 9:00 a 19:00
+        saturday: { open: 9, close: 14.5 }, // Sábado 9:00 a 14:30
+        sunday: null // Cerrado
+      },
+
+      // Servicios que aparecerán en las tarjetas y en el cotizador
+      services: [
+        {
+          title: "Afinación Mayor y Menor",
+          desc: "Cambio de aceite sintético o mineral, filtros de aire, aceite y gasolina, limpieza de cuerpo de aceleración e inyectores.",
+          tag: "Entrega el mismo día",
+          icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`
+        },
+        {
+          title: "Diagnóstico por Escáner",
+          desc: "Lectura computarizada de códigos de falla (Check Engine), sensores ABS, bolsas de aire y sistema electrónico completo.",
+          tag: "Diagnóstico preciso",
+          icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>`
+        },
+        {
+          title: "Frenos y Suspensión",
+          desc: "Cambio de balatas, rectificado de discos, amortiguadores, rótulas, terminales y alineación para un manejo seguro.",
+          tag: "Garantía por escrito",
+          icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6m0 6v6M3 12h6m6 0h6"/></svg>`
+        },
+        {
+          title: "Mecánica General y Motor",
+          desc: "Cambio de banda de distribución, bomba de agua, sistema de enfriamiento, clutch y reparación general de motor.",
+          tag: "Refacciones originales",
+          icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`
+        }
+      ],
+
+      // Reseñas simuladas estilo Google Maps
+      reviews: [
+        {
+          name: "Roberto Sánchez",
+          initials: "RS",
+          time: "Hace 2 semanas",
+          text: "Excelente servicio y sobre todo muy honestos. En otro lado me querían cambiar media suspensión y aquí me dijeron exactamente qué pieza era. Muy recomendados."
+        },
+        {
+          name: "María Fernanda López",
+          initials: "ML",
+          time: "Hace 1 mes",
+          text: "Llevé mi coche porque prendió el testigo del motor. Me atendieron súper rápido, me mandaron video de lo que tenía y el precio fue muy justo."
+        },
+        {
+          name: "Jorge Alberto Ruiz",
+          initials: "JR",
+          time: "Hace 1 mes",
+          text: "Puntuales con la entrega y muy limpios para trabajar. Ya es mi taller de cabecera en Aguascalientes para los servicios de mis dos autos."
+        }
+      ],
+
+      // Preguntas frecuentes
+      faqs: [
+        {
+          q: "¿Tienen garantía en sus reparaciones?",
+          a: "Sí, todos nuestros trabajos cuentan con garantía por escrito tanto en mano de obra como en las refacciones suministradas por nosotros."
+        },
+        {
+          q: "¿Cobran por revisar o cotizar mi vehículo?",
+          a: "Las cotizaciones por WhatsApp y revisiones visuales son totalmente sin costo. Si se requiere desarmar o meter escáner especializado, te informamos el costo antes de hacerlo."
+        },
+        {
+          q: "¿Puedo llevar mis propias refacciones?",
+          a: "¡Claro! Puedes traer tus refacciones o bien nosotros las conseguimos por ti con proveedores certificados para que no pierdas tiempo."
+        },
+        {
+          q: "¿Qué formas de pago aceptan?",
+          a: "Aceptamos efectivo, transferencia bancaria (SPEI) y tarjetas de débito o crédito."
+        }
+      ]
+    };
+
+    // Presets para demostrar versatilidad al cliente en vivo
+    const PRESETS = {
+      taller: {
+        businessName: "",
+        heroHighlight: "diagnóstico honesto",
+        heroSubtitle: "Evita sorpresas y gastos innecesarios. Revisamos tu vehículo con equipo de última generación y te cotizamos directo por WhatsApp en minutos.",
+        services: SITE_CONFIG.services
+      },
+      cerrajeria: {
+        businessName: "Cerrajería Don José",
+        heroHighlight: "apertura rápida sin daños",
+        heroSubtitle: "¿Te quedaste fuera de tu auto o casa? Llegamos rápido a cualquier punto de Aguascalientes con servicio profesional y garantizado.",
+        services: [
+          {
+            title: "Apertura de Autos y Casas",
+            desc: "Apertura urgente sin dañar chapas ni pintura para todo tipo de vehículos y cerraduras residenciales.",
+            tag: "Llegada en 20-30 min",
+            icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>`
+          },
+          {
+            title: "Llaves con Chip y Controles",
+            desc: "Duplicado y programación de llaves con transponder, controles originales y carcasas para todas las marcas.",
+            tag: "Programación al momento",
+            icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="14" r="2"/></svg>`
+          },
+          {
+            title: "Cambio de Combinación y Chapas",
+            desc: "Instalación de cerraduras de alta seguridad para hogares, locales comerciales y oficinas.",
+            tag: "Seguridad garantizada",
+            icon: `<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>`
+          }
+        ]
+      }
+    };
+
+    /**
+     * ========================================================================
+     * FUNCIONES DE RENDERIZADO Y ACTUALIZACIÓN DINÁMICA
+     * ========================================================================
+     */
+    function buildWhatsAppURL(message) {
+      const encoded = encodeURIComponent(message);
+      return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encoded}`;
+    }
+
+    function applyConfigToDOM() {
+      // Actualizar textos vinculados con data-bind
+      document.querySelectorAll("[data-bind]").forEach(el => {
+        const key = el.getAttribute("data-bind");
+        if (SITE_CONFIG[key]) {
+          el.textContent = SITE_CONFIG[key];
+        }
+      });
+
+      // Iniciales del logo
+      const words = SITE_CONFIG.businessName.trim().split(" ");
+      const initials = words.length > 1 
+        ? (words[0][0] + words[words.length - 1][0]).toUpperCase()
+        : words[0].substring(0, 2).toUpperCase();
+      document.getElementById("nav-logo-initials").textContent = initials;
+
+      // Actualizar enlaces directos de WhatsApp
+      document.querySelectorAll(".js-wa-direct").forEach(btn => {
+        const msg = btn.getAttribute("data-msg") || `Hola ${SITE_CONFIG.businessName}, me gustaría pedir información.`;
+        btn.href = buildWhatsAppURL(msg);
+        btn.target = "_blank";
+        btn.rel = "noopener";
+      });
+
+      // Actualizar enlaces de teléfono
+      const cleanPhone = SITE_CONFIG.whatsappNumber.replace(/^52/, "");
+      document.querySelectorAll(".js-phone-link").forEach(link => {
+        link.href = `tel:+52${cleanPhone}`;
+      });
+
+      // Renderizar Servicios y Select del Cotizador
+      const servicesContainer = document.getElementById("services-container");
+      const serviceSelect = document.getElementById("q-service");
+      servicesContainer.innerHTML = "";
+      serviceSelect.innerHTML = "";
+
+      SITE_CONFIG.services.forEach(srv => {
+        // Tarjeta de servicio
+        const card = document.createElement("div");
+        card.className = "service-card";
+        
+        card.innerHTML = `
+          <div>
+            <div class="service-icon-box">${srv.icon}</div>
+            <h3>${srv.title}</h3>
+            <p>${srv.desc}</p>
+          </div>
+          <div class="service-footer">
+            <span class="service-tag">✓ ${srv.tag}</span>
+            <button type="button" class="btn btn-outline btn-sm js-select-service" data-service="${srv.title}">
+              Cotizar este servicio
+            </button>
+          </div>
+        `;
+        servicesContainer.appendChild(card);
+
+        // Opción en el select del formulario
+        const opt = document.createElement("option");
+        opt.value = srv.title;
+        opt.textContent = srv.title;
+        serviceSelect.appendChild(opt);
+      });
+
+      // Al hacer clic en un servicio, se preselecciona en el cotizador y baja suavemente
+      document.querySelectorAll(".js-select-service").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const chosenService = btn.getAttribute("data-service");
+          serviceSelect.value = chosenService;
+          updateLiveWhatsAppPreview();
+          document.getElementById("cotizador").scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Opción extra "Otro servicio"
+      const otherOpt = document.createElement("option");
+      otherOpt.value = "Otro servicio / Revisión general";
+      otherOpt.textContent = "Otro servicio / Revisión general";
+      serviceSelect.appendChild(otherOpt);
+
+      // Renderizar Reseñas
+      const reviewsContainer = document.getElementById("reviews-container");
+      reviewsContainer.innerHTML = SITE_CONFIG.reviews.map(rev => `
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer">
+              <div class="reviewer-avatar">${rev.initials}</div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.92rem;">${rev.name}</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);">${rev.time}</div>
+              </div>
+            </div>
+            <div class="verified-badge">✓ Google</div>
+          </div>
+          <div class="google-stars">★★★★★</div>
+          <p class="review-text">"${rev.text}"</p>
+        </div>
+      `).join("");
+
+      // Renderizar FAQs
+      const faqContainer = document.getElementById("faq-container");
+      faqContainer.innerHTML = SITE_CONFIG.faqs.map((item, idx) => `
+        <div class="faq-item ${idx === 0 ? 'active' : ''}">
+          <button type="button" class="faq-question">
+            <span>${item.q}</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">${item.a}</div>
+        </div>
+      `).join("");
+
+      // Activar eventos del acordeón FAQ
+      document.querySelectorAll(".faq-question").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = btn.parentElement;
+          item.classList.toggle("active");
+        });
+      });
+
+      updateLiveWhatsAppPreview();
+    }
+
+    /**
+     * ========================================================================
+     * ESTADO EN TIEMPO REAL ("ABIERTO AHORA" / "CERRADO")
+     * ========================================================================
+     */
+    function updateBusinessStatus() {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Domingo, 1-5 = Lun-Vie, 6 = Sábado
+      const currentHour = now.getHours() + now.getMinutes() / 60;
+
+      let isOpen = false;
+      if (day >= 1 && day <= 5 && SITE_CONFIG.schedule.weekdays) {
+        isOpen = currentHour >= SITE_CONFIG.schedule.weekdays.open && currentHour < SITE_CONFIG.schedule.weekdays.close;
+      } else if (day === 6 && SITE_CONFIG.schedule.saturday) {
+        isOpen = currentHour >= SITE_CONFIG.schedule.saturday.open && currentHour < SITE_CONFIG.schedule.saturday.close;
+      }
+
+      const pill = document.getElementById("business-status-pill");
+      const text = document.getElementById("business-status-text");
+
+      if (isOpen) {
+        pill.classList.remove("closed");
+        text.textContent = "Abierto ahora";
+      } else {
+        pill.classList.add("closed");
+        text.textContent = "Cerrado • Agenda cita";
+      }
+    }
+
+    /**
+     * ========================================================================
+     * COTIZADOR INTERACTIVO EN VIVO
+     * ========================================================================
+     */
+    function generateQuoteMessage() {
+      const name = document.getElementById("q-name").value.trim() || "Un cliente";
+      const service = document.getElementById("q-service").value;
+      const vehicle = document.getElementById("q-vehicle").value.trim() || "No especificado";
+      const date = document.getElementById("q-date").value;
+      const notes = document.getElementById("q-notes").value.trim();
+
+      let msg = `Hola *${SITE_CONFIG.businessName}*, buen día.\n\n`;
+      msg += `Soy *${name}* y me gustaría cotizar:\n`;
+      msg += `• *Servicio:* ${service}\n`;
+      msg += `• *Vehículo/Detalle:* ${vehicle}\n`;
+      msg += `• *Cuándo:* ${date}\n`;
+      if (notes) {
+        msg += `• *Comentarios:* ${notes}\n`;
+      }
+      msg += `\n¿Me podrían apoyar con disponibilidad y costo aproximado?`;
+      return msg;
+    }
+
+    function updateLiveWhatsAppPreview() {
+      const previewEl = document.getElementById("wa-live-preview");
+      if (previewEl) {
+        previewEl.textContent = generateQuoteMessage();
+      }
+    }
+
+    // Escuchar cambios en el formulario para actualizar la burbuja en tiempo real
+    ["q-name", "q-service", "q-vehicle", "q-date", "q-notes"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("input", updateLiveWhatsAppPreview);
+        el.addEventListener("change", updateLiveWhatsAppPreview);
+      }
+    });
+
+    // Enviar formulario directo a WhatsApp
+    document.getElementById("quote-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const message = generateQuoteMessage();
+      const url = buildWhatsAppURL(message);
+      window.open(url, "_blank", "noopener");
+    });
+
+    /**
+     * ========================================================================
+     * ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER)
+     * ========================================================================
+     */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    /**
+     * ========================================================================
+     * PANEL DE MODO DEMO ("CAMALEÓN" EN VIVO)
+     * ========================================================================
+     */
+    const demoToggleBtn = document.getElementById("demo-toggle-btn");
+    const demoDrawer = document.getElementById("demo-drawer");
+    const closeDemoBtn = document.getElementById("close-demo-btn");
+
+    demoToggleBtn.addEventListener("click", () => {
+      demoDrawer.classList.toggle("open");
+    });
+
+    closeDemoBtn.addEventListener("click", () => {
+      demoDrawer.classList.remove("open");
+    });
+
+    document.getElementById("demo-name-input").addEventListener("input", (e) => {
+      SITE_CONFIG.businessName = e.target.value || "Tu Negocio Aquí";
+      applyConfigToDOM();
+    });
+
+    document.getElementById("demo-phone-input").addEventListener("input", (e) => {
+      const digits = e.target.value.replace(/\D/g, "");
+      if (digits.length >= 10) {
+        SITE_CONFIG.whatsappNumber = "52" + digits.slice(-10);
+        applyConfigToDOM();
+      }
+    });
+
+    document.getElementById("demo-preset-select").addEventListener("change", (e) => {
+      const preset = PRESETS[e.target.value];
+      if (preset) {
+        SITE_CONFIG.businessName = preset.businessName;
+        SITE_CONFIG.heroHighlight = preset.heroHighlight;
+        SITE_CONFIG.heroSubtitle = preset.heroSubtitle;
+        SITE_CONFIG.services = preset.services;
+        document.getElementById("demo-name-input").value = preset.businessName;
+        applyConfigToDOM();
+      }
+    });
+
+    document.querySelectorAll(".swatch").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const color = btn.getAttribute("data-color");
+        const hover = btn.getAttribute("data-hover");
+        applyBrandColor(color, hover);
+        document.getElementById("demo-color-picker").value = color;
+      });
+    });
+
+    document.getElementById("demo-color-picker").addEventListener("input", (e) => {
+      const color = e.target.value;
+      applyBrandColor(color, color);
+    });
+
+    function applyBrandColor(color, hover) {
+      document.documentElement.style.setProperty("--primary", color);
+      document.documentElement.style.setProperty("--primary-hover", hover);
+      document.documentElement.style.setProperty("--primary-soft", `${color}22`);
+      document.documentElement.style.setProperty("--shadow-glow", `0 0 25px ${color}40`);
+    }
+
+    /**
+     * ========================================================================
+     * GESTIÓN DE MODO CLARO / OSCURO (SINCRONIZADO EN HEADER Y PANEL DEMO)
+     * ========================================================================
+     */
+    const SUN_ICON = `<svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+    const MOON_ICON = `<svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`;
+
+    function setTheme(theme) {
+      const validTheme = theme === "light" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", validTheme);
+      localStorage.setItem("camaleon_theme", validTheme);
+
+      // Actualizar icono del botón en la barra superior (Muestra el icono al que cambiará)
+      const headerBtn = document.getElementById("header-theme-toggle");
+      if (headerBtn) {
+        headerBtn.innerHTML = validTheme === "dark" ? SUN_ICON : MOON_ICON;
+        headerBtn.title = validTheme === "dark" ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro";
+      }
+
+      // Sincronizar botones del Panel Demo
+      const lightBtn = document.getElementById("demo-theme-light");
+      const darkBtn = document.getElementById("demo-theme-dark");
+      if (lightBtn && darkBtn) {
+        lightBtn.classList.toggle("active", validTheme === "light");
+        darkBtn.classList.toggle("active", validTheme === "dark");
+      }
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem("camaleon_theme");
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else if (SITE_CONFIG.defaultTheme) {
+        setTheme(SITE_CONFIG.defaultTheme);
+      } else {
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        setTheme(prefersLight ? "light" : "dark");
+      }
+    }
+
+    // Evento del botón Sol/Luna en el Header
+    document.getElementById("header-theme-toggle").addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // Eventos de los botones Claro / Oscuro dentro del Panel Demo
+    document.querySelectorAll("[data-set-theme]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setTheme(btn.getAttribute("data-set-theme"));
+      });
+    });
+
+    // Inicialización al cargar la página
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+    initTheme();
+    applyConfigToDOM();
+    updateBusinessStatus();
+  </script>
+</body>
+</html>
