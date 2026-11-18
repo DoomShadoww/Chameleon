@@ -69,9 +69,21 @@
     }
 
     html, body {
+      width: 100%;
       max-width: 100%;
       overflow-x: hidden;
       font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    #site-shell {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    section, header, footer, nav, div {
+      min-width: 0;
     }
 
     /* Botón Principal Dinámico */
@@ -183,622 +195,716 @@
 <body class="bg-slate-50 text-slate-900 dark:bg-obsidian-950 dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-brand selection:text-brand-contrast">
 
   <!-- ========================================================================
-       1. HEADER STICKY GLASSMORPHIC + INDICADOR DE HORARIO EN TIEMPO REAL
+       PANTALLA DE BLOQUEO POR TOKEN EXPIRADO O ALTERADO
        ======================================================================== -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/85 dark:bg-obsidian-900/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
-    <!-- Barra Superior de Estado Horario en Tiempo Real (4 Estados) -->
-    <div class="bg-slate-950 text-slate-200 border-b border-slate-800/90 px-3 sm:px-6 py-1.5 text-[11px] sm:text-xs">
-      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-        <!-- Píldora Dinámica 4 Estados -->
-        <div class="flex items-center gap-2 min-w-0">
-          <span id="header-status-pill" class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full font-mono font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 truncate">
-            <span id="header-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-            <span id="header-status-text" class="truncate">Abierto ahora • Cierra a las 19:00</span>
-          </span>
-        </div>
-
-        <!-- Dirección y Teléfono Rápido -->
-        <div class="flex items-center gap-3 sm:gap-5 text-slate-300 shrink-0">
-          <span class="hidden md:inline-flex items-center gap-1.5 text-slate-400">
-            <i class="fa-solid fa-location-dot" style="color: var(--accent);"></i>
-            <span id="header-address-text">Aguascalientes, Ags.</span>
-          </span>
-          <a href="tel:+524491583192" class="js-phone-href inline-flex items-center gap-1.5 font-mono font-bold text-white hover:opacity-85 transition">
-            <i class="fa-solid fa-phone text-[10px]" style="color: var(--accent);"></i>
-            <span id="header-phone-text">449 158 3192</span>
-          </a>
-        </div>
+  <div id="token-blocked-screen" class="hidden min-h-screen flex items-center justify-center p-4 sm:p-6 bg-slate-950 text-slate-100 hero-bento-bg">
+    <div class="max-w-md w-full bg-obsidian-900/95 backdrop-blur-xl border border-slate-800 rounded-[2rem] p-6 sm:p-8 text-center shadow-2xl space-y-5">
+      <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
+        <i id="blocked-icon" class="fa-solid fa-hourglass-end"></i>
       </div>
-    </div>
-
-    <!-- Barra Principal de Navegación -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
-      <!-- Marca / Identidad -->
-      <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1 lg:flex-initial group">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 transition-transform group-hover:scale-105"
-             style="background-color: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-glow);">
-          <i id="brand-icon" class="fa-solid fa-wrench"></i>
-        </div>
-        <div class="min-w-0">
-          <span id="nav-business-name" class="block font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 dark:text-white truncate">
-            Servicio Automotriz Martínez
-          </span>
-          <span id="nav-business-tagline" class="block text-[11px] sm:text-xs font-semibold truncate" style="color: var(--accent);">
-            Mecánica Especializada y Diagnóstico
-          </span>
-        </div>
+      <div class="space-y-2">
+        <span class="inline-block px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25">
+          Camaleón Pro Studio • Acceso Protegido
+        </span>
+        <h1 id="blocked-title" class="font-extrabold text-2xl text-white">
+          Vista previa temporal expirada
+        </h1>
+        <p id="blocked-desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Esta muestra personalizada estuvo activa durante 48 horas. Contáctanos para reactivar tu demostración o publicar tu página web oficial con dominio propio.
+        </p>
+      </div>
+      <a id="blocked-cta-btn" href="#" target="_blank" rel="noopener"
+         class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-5 rounded-2xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2 text-sm">
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>Activar mi página oficial</span>
       </a>
-
-      <!-- Enlaces Desktop -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
-        <a href="#cotizador" class="hover:text-slate-950 dark:hover:text-white transition">Cotizador</a>
-        <a href="#servicios" class="hover:text-slate-950 dark:hover:text-white transition">Servicios</a>
-        <a href="#galeria" class="hover:text-slate-950 dark:hover:text-white transition">Galería</a>
-        <a href="#resenas" class="hover:text-slate-950 dark:hover:text-white transition">Reseñas</a>
-        <a href="#faq" class="hover:text-slate-950 dark:hover:text-white transition">Preguntas</a>
-        <a href="#ubicacion" class="hover:text-slate-950 dark:hover:text-white transition">Ubicación</a>
-      </nav>
-
-      <!-- Acciones Derecha -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <!-- Toggle Sol / Luna -->
-        <button type="button" id="header-theme-toggle" aria-label="Cambiar modo claro u oscuro"
-                class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:border-brand transition">
-          <i id="header-theme-icon" class="fa-solid fa-sun text-sm sm:text-base"></i>
-        </button>
-
-        <!-- Botón WhatsApp Header -->
-        <a href="#" target="_blank" rel="noopener"
-           class="js-wa-direct inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition">
-          <i class="fa-brands fa-whatsapp text-base sm:text-lg"></i>
-          <span class="hidden sm:inline">WhatsApp</span>
-        </a>
-
-        <!-- Botón Menú Móvil -->
-        <button type="button" id="mobile-menu-toggle" aria-label="Abrir menú"
-                class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200">
-          <i id="mobile-menu-icon" class="fa-solid fa-bars text-sm"></i>
-        </button>
-      </div>
     </div>
-
-    <!-- Menú Móvil Desplegable -->
-    <div id="mobile-menu-drawer" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 px-4 py-3 space-y-1 shadow-xl">
-      <a href="#cotizador" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Cotizador / Cita Directa</a>
-      <a href="#servicios" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Servicios y Precios</a>
-      <a href="#galeria" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Galería de Muestra</a>
-      <a href="#resenas" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Reseñas en Google (4.9 ★)</a>
-      <a href="#faq" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Preguntas Frecuentes</a>
-      <a href="#ubicacion" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Ubicación y Horarios</a>
-    </div>
-  </header>
+  </div>
 
   <!-- ========================================================================
-       2. HERO BENTO VISUAL DE VANGUARDIA (TEXTO + FOTOGRAFÍA ENMARCADA)
+       CONTENEDOR PRINCIPAL DEL SITIO
        ======================================================================== -->
-  <section class="relative hero-bento-bg bg-grid-pattern pt-8 pb-12 sm:pt-14 sm:pb-20 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-      
-      <!-- Columna Izquierda: Propuesta de Valor (6 cols) -->
-      <div class="lg:col-span-6 space-y-5 sm:space-y-6">
-        <!-- Etiqueta de Giro / Confianza -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border"
-             style="background-color: var(--accent-soft); border-color: var(--accent-glow); color: var(--accent);">
-          <i id="hero-pill-icon" class="fa-solid fa-shield-halved"></i>
-          <span id="hero-pill-text">Servicio Garantizado • Atención Inmediata</span>
-        </div>
+  <div id="site-shell">
 
-        <!-- Título Principal -->
-        <h1 id="hero-title" class="font-extrabold text-3xl sm:text-5xl lg:text-[3.2rem] leading-[1.12] tracking-tight text-slate-900 dark:text-white">
-          Tu auto en manos expertas: <span style="color: var(--accent);">diagnóstico honesto</span> y reparación garantizada
-        </h1>
-
-        <!-- Descripción -->
-        <p id="hero-subtitle" class="text-sm sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-          Evita gastos innecesarios. Revisamos tu vehículo con escáner computarizado, te damos presupuesto claro antes de trabajar y cotizas directo por WhatsApp en segundos.
-        </p>
-
-        <!-- Botones de Acción -->
-        <div class="flex flex-col sm:flex-row gap-3 pt-1">
-          <a href="#cotizador" class="btn-brand px-6 py-4 rounded-2xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-            <span id="hero-cta-primary">Cotizar por WhatsApp ahora</span>
-          </a>
-          <a href="tel:+524491583192" class="js-phone-href px-6 py-4 rounded-2xl font-bold text-sm sm:text-base bg-white dark:bg-obsidian-850 hover:bg-slate-100 dark:hover:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white inline-flex items-center justify-center gap-2.5 transition shadow-sm">
-            <i class="fa-solid fa-phone" style="color: var(--accent);"></i>
-            <span id="hero-cta-secondary">Llamar Directo</span>
-          </a>
-        </div>
-
-        <!-- Bento Mini-Métricas -->
-        <div class="grid grid-cols-3 gap-2.5 sm:gap-4 pt-3">
-          <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-3 sm:p-4">
-            <p id="metric-1-val" class="font-mono font-extrabold text-lg sm:text-2xl" style="color: var(--accent);">4.9 ★</p>
-            <p id="metric-1-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Google Maps</p>
+    <!-- ======================================================================
+         1. HEADER STICKY GLASSMORPHIC + INDICADOR DE HORARIO + CINTA BORRADOR
+         ====================================================================== -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/85 dark:bg-obsidian-900/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      <!-- Cinta de Propuesta Comercial (Visible solo en enlaces de prospecto ?p=...) -->
+      <div id="preview-proposal-bar" class="hidden bg-gradient-to-r from-amber-500/20 via-slate-900 to-emerald-500/20 text-white border-b border-amber-500/30 px-3 sm:px-6 py-2">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-extrabold uppercase tracking-wider text-[10px] shrink-0">
+              Borrador
+            </span>
+            <span class="truncate font-semibold text-slate-100">
+              Propuesta exclusiva para <strong id="proposal-biz-name" class="text-amber-300">tu negocio</strong>
+            </span>
+            <span id="proposal-countdown" class="hidden sm:inline-flex items-center gap-1 font-mono text-[11px] px-2 py-0.5 rounded-full bg-white/10 text-amber-200 shrink-0">
+              ⏱️ Expira en 47h 59m
+            </span>
           </div>
-          <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-3 sm:p-4">
-            <p id="metric-2-val" class="font-mono font-extrabold text-lg sm:text-2xl text-slate-900 dark:text-white">+15 Años</p>
-            <p id="metric-2-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Experiencia</p>
-          </div>
-          <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-3 sm:p-4">
-            <p id="metric-3-val" class="font-mono font-extrabold text-lg sm:text-2xl text-emerald-500">100%</p>
-            <p id="metric-3-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Garantizado</p>
-          </div>
+          <button type="button" id="proposal-activate-btn"
+                  class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] transition shrink-0 shadow">
+            Activar sitio oficial →
+          </button>
         </div>
       </div>
 
-      <!-- Columna Derecha: Hero Bento Visual con Fotografía Estratégica Enmarcada (6 cols) -->
-      <div class="lg:col-span-6">
-        <div class="relative rounded-[2rem] p-2.5 sm:p-3.5 bg-white/90 dark:bg-obsidian-850/90 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 shadow-2xl">
-          
-          <!-- Etiqueta Flotante Superior -->
-          <div class="absolute top-5 left-5 right-5 sm:top-7 sm:left-7 sm:right-7 z-20 flex items-center justify-between gap-2 pointer-events-none">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white border border-white/15 text-[11px] sm:text-xs font-bold shadow-lg">
-              <span>📸 Vista previa: Aquí irá la foto real de tu negocio</span>
+      <!-- Barra Superior de Estado Horario en Tiempo Real (4 Estados) -->
+      <div class="bg-slate-950 text-slate-200 border-b border-slate-800/90 px-3 sm:px-6 py-1.5 text-[11px] sm:text-xs">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <span id="header-status-pill" class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full font-mono font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 truncate">
+              <span id="header-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+              <span id="header-status-text" class="truncate">Abierto ahora • Cierra a las 19:00</span>
             </span>
           </div>
 
-          <!-- Contenedor Fotográfico Principal con Fallback Automático -->
-          <div class="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-[1.4rem] overflow-hidden bg-slate-200 dark:bg-obsidian-900">
-            <img id="hero-main-image"
-                 src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80"
-                 alt="Fotografía principal del negocio"
-                 class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
-            <!-- Gradiente sutil inferior para legibilidad de la tarjeta flotante -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/25 pointer-events-none"></div>
-          </div>
-
-          <!-- Tarjeta Flotante Inferior de Google Rating -->
-          <div class="relative sm:absolute sm:bottom-7 sm:left-7 sm:right-7 z-20 mt-2.5 sm:mt-0 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-700/90 rounded-2xl p-3.5 sm:p-4 shadow-xl flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center font-extrabold text-lg text-blue-500 shrink-0">
-                G
-              </div>
-              <div class="min-w-0">
-                <div class="flex items-center gap-1.5">
-                  <span id="hero-google-score" class="font-mono font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">4.9 ★</span>
-                  <span class="text-amber-400 text-xs hidden sm:inline">★★★★★</span>
-                </div>
-                <p id="hero-google-reviews" class="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">
-                  +150 reseñas verificadas en Google
-                </p>
-              </div>
-            </div>
-            <a href="#resenas" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition"
-               style="background-color: var(--accent-soft); color: var(--accent);">
-              Ver opiniones
+          <div class="flex items-center gap-3 sm:gap-5 text-slate-300 shrink-0">
+            <span class="hidden md:inline-flex items-center gap-1.5 text-slate-400">
+              <i class="fa-solid fa-location-dot" style="color: var(--accent);"></i>
+              <span id="header-address-text">Aguascalientes, Ags.</span>
+            </span>
+            <a href="tel:+524491583192" class="js-phone-href inline-flex items-center gap-1.5 font-mono font-bold text-white hover:opacity-85 transition">
+              <i class="fa-solid fa-phone text-[10px]" style="color: var(--accent);"></i>
+              <span id="header-phone-text">449 158 3192</span>
             </a>
           </div>
-
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       3. COTIZADOR / AGENDADOR / CARRITO INTELIGENTE + WHATSAPP EN VIVO
-       ======================================================================== -->
-  <section id="cotizador" class="py-10 sm:py-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-5 sm:p-8 lg:p-10 shadow-xl grid lg:grid-cols-12 gap-7 lg:gap-10 items-center">
-        
-        <!-- Formulario / Carrito Dinámico según Giro (7 cols) -->
-        <div class="lg:col-span-7 space-y-5">
-          <div class="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
-            <div>
-              <span id="widget-tag" class="font-mono text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">
-                Cotizador Express
-              </span>
-              <h2 id="widget-title" class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white mt-0.5">
-                Cotiza tu servicio en segundos
-              </h2>
-            </div>
-            <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0"
-                 style="background-color: var(--accent-soft); color: var(--accent);">
-              <i id="widget-icon" class="fa-solid fa-bolt"></i>
-            </div>
+      <!-- Barra Principal de Navegación -->
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+        <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1 lg:flex-initial group">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 transition-transform group-hover:scale-105"
+               style="background-color: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-glow);">
+            <i id="brand-icon" class="fa-solid fa-wrench"></i>
           </div>
-
-          <!-- Campos Específicos por Industria -->
-          <div id="dynamic-widget-fields" class="space-y-3.5">
-            <!-- Inyectado dinámicamente por JS -->
+          <div class="min-w-0">
+            <span id="nav-business-name" class="block font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 dark:text-white truncate">
+              Servicio Automotriz Martínez
+            </span>
+            <span id="nav-business-tagline" class="block text-[11px] sm:text-xs font-semibold truncate" style="color: var(--accent);">
+              Mecánica Especializada y Diagnóstico
+            </span>
           </div>
+        </a>
 
-          <!-- Botón Principal de Envío -->
-          <button type="button" id="widget-send-btn"
-                  class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2.5 text-sm sm:text-base">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-            <span id="widget-submit-text">Enviar Cotización por WhatsApp</span>
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+          <a href="#cotizador" class="hover:text-slate-950 dark:hover:text-white transition">Cotizador</a>
+          <a href="#servicios" class="hover:text-slate-950 dark:hover:text-white transition">Servicios</a>
+          <a href="#galeria" class="hover:text-slate-950 dark:hover:text-white transition">Galería</a>
+          <a href="#resenas" class="hover:text-slate-950 dark:hover:text-white transition">Reseñas</a>
+          <a href="#faq" class="hover:text-slate-950 dark:hover:text-white transition">Preguntas</a>
+          <a href="#ubicacion" class="hover:text-slate-950 dark:hover:text-white transition">Ubicación</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button type="button" id="header-theme-toggle" aria-label="Cambiar modo claro u oscuro"
+                  class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:border-brand transition">
+            <i id="header-theme-icon" class="fa-solid fa-sun text-sm sm:text-base"></i>
+          </button>
+
+          <a href="#" target="_blank" rel="noopener"
+             class="js-wa-direct inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition">
+            <i class="fa-brands fa-whatsapp text-base sm:text-lg"></i>
+            <span class="hidden sm:inline">WhatsApp</span>
+          </a>
+
+          <button type="button" id="mobile-menu-toggle" aria-label="Abrir menú"
+                  class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200">
+            <i id="mobile-menu-icon" class="fa-solid fa-bars text-sm"></i>
           </button>
         </div>
+      </div>
 
-        <!-- Vista Previa en Tiempo Real de WhatsApp (5 cols) -->
-        <div class="lg:col-span-5">
-          <div class="rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-lg">
-            <!-- Cabecera Simulada WhatsApp Business -->
-            <div class="bg-[#075E54] dark:bg-[#1f2c34] text-white px-4 py-3 flex items-center justify-between">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-white/20 flex items-center justify-center text-sm font-bold shrink-0">
-                  <i id="wa-mock-avatar" class="fa-solid fa-wrench"></i>
+      <!-- Menú Móvil Desplegable -->
+      <div id="mobile-menu-drawer" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 px-4 py-3 space-y-1 shadow-xl">
+        <a href="#cotizador" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Cotizador / Cita Directa</a>
+        <a href="#servicios" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Servicios y Precios</a>
+        <a href="#galeria" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Galería de Muestra</a>
+        <a href="#resenas" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Reseñas en Google (4.9 ★)</a>
+        <a href="#faq" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Preguntas Frecuentes</a>
+        <a href="#ubicacion" class="js-mobile-link block px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-obsidian-800">Ubicación y Horarios</a>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         2. HERO BENTO VISUAL DE VANGUARDIA (TEXTO + FOTOGRAFÍA ENMARCADA)
+         ====================================================================== -->
+    <section class="relative hero-bento-bg bg-grid-pattern pt-8 pb-12 sm:pt-14 sm:pb-20 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        
+        <!-- Columna Izquierda: Propuesta de Valor (6 cols) -->
+        <div class="lg:col-span-6 space-y-5 sm:space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border max-w-full"
+               style="background-color: var(--accent-soft); border-color: var(--accent-glow); color: var(--accent);">
+            <i id="hero-pill-icon" class="fa-solid fa-shield-halved shrink-0"></i>
+            <span id="hero-pill-text" class="truncate">Servicio Garantizado • Atención Inmediata</span>
+          </div>
+
+          <h1 id="hero-title" class="font-extrabold text-3xl sm:text-5xl lg:text-[3.2rem] leading-[1.12] tracking-tight text-slate-900 dark:text-white">
+            Tu auto en manos expertas: <span style="color: var(--accent);">diagnóstico honesto</span> y reparación garantizada
+          </h1>
+
+          <p id="hero-subtitle" class="text-sm sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+            Evita gastos innecesarios. Revisamos tu vehículo con escáner computarizado, te damos presupuesto claro antes de trabajar y cotizas directo por WhatsApp en segundos.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 pt-1">
+            <a href="#cotizador" class="btn-brand px-6 py-4 rounded-2xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5">
+              <i class="fa-brands fa-whatsapp text-xl"></i>
+              <span id="hero-cta-primary">Cotizar por WhatsApp ahora</span>
+            </a>
+            <a href="tel:+524491583192" class="js-phone-href px-6 py-4 rounded-2xl font-bold text-sm sm:text-base bg-white dark:bg-obsidian-850 hover:bg-slate-100 dark:hover:bg-obsidian-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white inline-flex items-center justify-center gap-2.5 transition shadow-sm">
+              <i class="fa-solid fa-phone" style="color: var(--accent);"></i>
+              <span id="hero-cta-secondary">Llamar Directo</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-3">
+            <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-4">
+              <p id="metric-1-val" class="font-mono font-extrabold text-base sm:text-2xl" style="color: var(--accent);">4.9 ★</p>
+              <p id="metric-1-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Google Maps</p>
+            </div>
+            <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-4">
+              <p id="metric-2-val" class="font-mono font-extrabold text-base sm:text-2xl text-slate-900 dark:text-white">+15 Años</p>
+              <p id="metric-2-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Experiencia</p>
+            </div>
+            <div class="bg-white/80 dark:bg-obsidian-850/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-4">
+              <p id="metric-3-val" class="font-mono font-extrabold text-base sm:text-2xl text-emerald-500">100%</p>
+              <p id="metric-3-lbl" class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Garantizado</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Hero Bento Visual con Fotografía Estratégica Enmarcada (6 cols) -->
+        <div class="lg:col-span-6">
+          <div class="relative rounded-[2rem] p-2.5 sm:p-3.5 bg-white/90 dark:bg-obsidian-850/90 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800 shadow-2xl">
+            <div class="absolute top-5 left-5 right-5 sm:top-7 sm:left-7 sm:right-7 z-20 flex items-center justify-between gap-2 pointer-events-none">
+              <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white border border-white/15 text-[11px] sm:text-xs font-bold shadow-lg max-w-full truncate">
+                <span class="truncate">📸 Vista previa: Aquí irá la foto real de tu negocio</span>
+              </span>
+            </div>
+
+            <div class="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-[1.4rem] overflow-hidden bg-slate-200 dark:bg-obsidian-900">
+              <img id="hero-main-image"
+                   src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80"
+                   alt="Fotografía principal del negocio"
+                   class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/25 pointer-events-none"></div>
+            </div>
+
+            <div class="relative sm:absolute sm:bottom-7 sm:left-7 sm:right-7 z-20 mt-2.5 sm:mt-0 bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-700/90 rounded-2xl p-3.5 sm:p-4 shadow-xl flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center font-extrabold text-lg text-blue-500 shrink-0">
+                  G
                 </div>
                 <div class="min-w-0">
-                  <p id="wa-mock-name" class="text-xs sm:text-sm font-bold truncate">Servicio Automotriz Martínez</p>
-                  <p class="text-[10px] text-emerald-200 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> En línea • Respuesta rápida
+                  <div class="flex items-center gap-1.5">
+                    <span id="hero-google-score" class="font-mono font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">4.9 ★</span>
+                    <span class="text-amber-400 text-xs hidden sm:inline">★★★★★</span>
+                  </div>
+                  <p id="hero-google-reviews" class="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">
+                    +150 reseñas verificadas en Google
                   </p>
                 </div>
               </div>
-              <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-black/25 text-emerald-200 shrink-0">Vista previa</span>
-            </div>
-
-            <!-- Lienzo de Chat WhatsApp -->
-            <div class="wa-preview-canvas p-4 sm:p-5 min-h-[210px] flex flex-col justify-between space-y-3">
-              <div class="text-center">
-                <span class="inline-block px-2.5 py-0.5 rounded-lg bg-black/10 dark:bg-white/10 text-[10px] font-mono text-slate-600 dark:text-slate-300">
-                  Así recibirá el mensaje tu negocio
-                </span>
-              </div>
-              <div class="self-end max-w-[92%] wa-preview-bubble p-3.5 rounded-2xl rounded-tr-none shadow-sm space-y-1.5">
-                <p id="wa-live-bubble" class="text-xs sm:text-[13px] leading-relaxed whitespace-pre-line font-medium">
-                  Hola, buen día...
-                </p>
-                <div class="flex items-center justify-end gap-1 text-[10px] opacity-70 font-mono">
-                  <span id="wa-mock-time">12:00</span>
-                  <i class="fa-solid fa-check-double text-sky-500"></i>
-                </div>
-              </div>
+              <a href="#resenas" class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition"
+                 style="background-color: var(--accent-soft); color: var(--accent);">
+                Ver opiniones
+              </a>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================================================
-       4. SECCIÓN DE SERVICIOS (4 TARJETAS CON ETIQUETAS Y SELECCIÓN DIRECTA)
-       ======================================================================== -->
-  <section id="servicios" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-12 space-y-2.5">
-        <span class="inline-block px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
-              style="background-color: var(--accent-soft); color: var(--accent);">
-          Nuestros Servicios
-        </span>
-        <h2 id="services-heading" class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
-          Soluciones profesionales a tu medida
-        </h2>
-        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-          Selecciona cualquier servicio para cargarlo automáticamente en el cotizador de WhatsApp.
-        </p>
+    <!-- ======================================================================
+         3. COTIZADOR / AGENDADOR / CARRITO INTELIGENTE + WHATSAPP EN VIVO
+         ====================================================================== -->
+    <section id="cotizador" class="py-10 sm:py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-5 sm:p-8 lg:p-10 shadow-xl grid lg:grid-cols-12 gap-7 lg:gap-10 items-center">
+          
+          <div class="lg:col-span-7 space-y-5">
+            <div class="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div>
+                <span id="widget-tag" class="font-mono text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">
+                  Cotizador Express
+                </span>
+                <h2 id="widget-title" class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white mt-0.5">
+                  Cotiza tu servicio en segundos
+                </h2>
+              </div>
+              <div class="w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0"
+                   style="background-color: var(--accent-soft); color: var(--accent);">
+                <i id="widget-icon" class="fa-solid fa-bolt"></i>
+              </div>
+            </div>
+
+            <div id="dynamic-widget-fields" class="space-y-3.5">
+              <!-- Inyectado dinámicamente por JS -->
+            </div>
+
+            <button type="button" id="widget-send-btn"
+                    class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2.5 text-sm sm:text-base">
+              <i class="fa-brands fa-whatsapp text-xl"></i>
+              <span id="widget-submit-text">Enviar Cotización por WhatsApp</span>
+            </button>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-lg">
+              <div class="bg-[#075E54] dark:bg-[#1f2c34] text-white px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-white/20 flex items-center justify-center text-sm font-bold shrink-0">
+                    <i id="wa-mock-avatar" class="fa-solid fa-wrench"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <p id="wa-mock-name" class="text-xs sm:text-sm font-bold truncate">Servicio Automotriz Martínez</p>
+                    <p class="text-[10px] text-emerald-200 flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> En línea • Respuesta rápida
+                    </p>
+                  </div>
+                </div>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-black/25 text-emerald-200 shrink-0">Vista previa</span>
+              </div>
+
+              <div class="wa-preview-canvas p-4 sm:p-5 min-h-[210px] flex flex-col justify-between space-y-3">
+                <div class="text-center">
+                  <span class="inline-block px-2.5 py-0.5 rounded-lg bg-black/10 dark:bg-white/10 text-[10px] font-mono text-slate-600 dark:text-slate-300">
+                    Así recibirá el mensaje tu negocio
+                  </span>
+                </div>
+                <div class="self-end max-w-[92%] wa-preview-bubble p-3.5 rounded-2xl rounded-tr-none shadow-sm space-y-1.5">
+                  <p id="wa-live-bubble" class="text-xs sm:text-[13px] leading-relaxed whitespace-pre-line font-medium">
+                    Hola, buen día...
+                  </p>
+                  <div class="flex items-center justify-end gap-1 text-[10px] opacity-70 font-mono">
+                    <span id="wa-mock-time">12:00</span>
+                    <i class="fa-solid fa-check-double text-sky-500"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+    </section>
 
-      <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-        <!-- Renderizado dinámico por JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       5. GALERÍA DE MUESTRA: TU NEGOCIO EN ACCIÓN (3 TARJETAS VISUALES ESTRATÉGICAS)
-       ======================================================================== -->
-  <section id="galeria" class="py-16 sm:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-        <div class="space-y-2 max-w-2xl">
-          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
+    <!-- ======================================================================
+         4. SECCIÓN DE SERVICIOS (4 TARJETAS CON ETIQUETAS Y SELECCIÓN DIRECTA)
+         ====================================================================== -->
+    <section id="servicios" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-2.5">
+          <span class="inline-block px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
                 style="background-color: var(--accent-soft); color: var(--accent);">
-            <i class="fa-solid fa-images"></i> Galería de Muestra
+            Nuestros Servicios
           </span>
-          <h2 class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
-            Galería de Muestra: Tu Negocio en Acción
+          <h2 id="services-heading" class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
+            Soluciones profesionales a tu medida
           </h2>
-          <p id="gallery-subtitle" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-            Así lucirán tus instalaciones, equipo y trabajos reales para generar confianza inmediata en tus clientes.
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+            Selecciona cualquier servicio para cargarlo automáticamente en el cotizador de WhatsApp.
           </p>
         </div>
-        <a href="#cotizador" class="btn-brand px-5 py-3 rounded-xl font-bold text-xs sm:text-sm self-start md:self-auto shrink-0">
-          Solicitar información →
-        </a>
-      </div>
 
-      <!-- 3 Tarjetas Visuales con Etiqueta Sutil "Espacio para tu foto" -->
-      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-        <!-- Renderizado dinámico por JS -->
+        <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <!-- Renderizado dinámico por JS -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================================================
-       6. SECCIÓN DE RESEÑAS VERIFICADAS EN GOOGLE MAPS
-       ======================================================================== -->
-  <section id="resenas" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <!-- Banner Resumen Google -->
-      <div class="bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-        <div class="flex items-center gap-4">
-          <div class="w-14 h-14 rounded-2xl bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-3xl font-extrabold text-blue-500 shrink-0 shadow-sm">
-            G
-          </div>
-          <div>
-            <div class="flex items-center gap-2.5">
-              <span class="font-mono font-extrabold text-3xl text-slate-900 dark:text-white">4.9</span>
-              <span class="text-amber-400 text-lg">★★★★★</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium mt-0.5">
-              Reputación Excelente • Basada en +150 opiniones reales de clientes en Google Maps
+    <!-- ======================================================================
+         5. GALERÍA DE MUESTRA: TU NEGOCIO EN ACCIÓN
+         ====================================================================== -->
+    <section id="galeria" class="py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+          <div class="space-y-2 max-w-2xl">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
+                  style="background-color: var(--accent-soft); color: var(--accent);">
+              <i class="fa-solid fa-images"></i> Galería de Muestra
+            </span>
+            <h2 class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
+              Galería de Muestra: Tu Negocio en Acción
+            </h2>
+            <p id="gallery-subtitle" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+              Así lucirán tus instalaciones, equipo y trabajos reales para generar confianza inmediata en tus clientes.
             </p>
           </div>
+          <a href="#cotizador" class="btn-brand px-5 py-3 rounded-xl font-bold text-xs sm:text-sm self-start md:self-auto shrink-0">
+            Solicitar información →
+          </a>
         </div>
-        <a href="#cotizador" class="btn-brand px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-center shrink-0">
-          Agendar o Cotizar ahora
-        </a>
-      </div>
 
-      <!-- 3 Testimonios por Giro -->
-      <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Renderizado dinámico por JS -->
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Renderizado dinámico por JS -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================================================
-       7. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO POR INDUSTRIA)
-       ======================================================================== -->
-  <section id="faq" class="py-16 sm:py-20">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-10 space-y-2.5">
-        <span class="inline-block px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
-              style="background-color: var(--accent-soft); color: var(--accent);">
-          Preguntas Frecuentes
-        </span>
-        <h2 class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
-          Resolvemos tus dudas antes de visitarnos
-        </h2>
-      </div>
-
-      <div id="faq-accordion" class="space-y-3">
-        <!-- Renderizado dinámico por JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       8. UBICACIÓN, INDICADOR DE HORARIO EN VIVO Y MAPA RESPONSIVO
-       ======================================================================== -->
-  <section id="ubicacion" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-slate-200/80 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid lg:grid-cols-12 gap-8 items-stretch">
-        <!-- Tarjeta Información y Horarios (5 cols) -->
-        <div class="lg:col-span-5 bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
-          <div class="space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <span class="font-mono text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">Ubicación y Horarios</span>
-                <h2 class="font-extrabold text-2xl text-slate-900 dark:text-white mt-0.5">Visítanos Hoy</h2>
-              </div>
-              <!-- Píldora Dinámica de Estado Horario en Ubicación -->
-              <span id="location-status-pill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full font-mono text-xs font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
-                <span id="location-status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span id="location-status-text">Abierto ahora</span>
-              </span>
+    <!-- ======================================================================
+         6. SECCIÓN DE RESEÑAS VERIFICADAS EN GOOGLE MAPS
+         ====================================================================== -->
+    <section id="resenas" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-3xl font-extrabold text-blue-500 shrink-0 shadow-sm">
+              G
             </div>
-
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                   style="background-color: var(--accent-soft); color: var(--accent);">
-                <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <div class="flex items-center gap-2.5">
+                <span class="font-mono font-extrabold text-3xl text-slate-900 dark:text-white">4.9</span>
+                <span class="text-amber-400 text-lg">★★★★★</span>
               </div>
-              <div>
-                <p class="font-bold text-sm text-slate-900 dark:text-white">Dirección del Negocio</p>
-                <p id="location-address" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
-                  Av. Convención Norte #412, Aguascalientes, Ags.
-                </p>
-              </div>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+                Reputación Excelente • Basada en +150 opiniones reales de clientes en Google Maps
+              </p>
             </div>
+          </div>
+          <a href="#cotizador" class="btn-brand px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-center shrink-0">
+            Agendar o Cotizar ahora
+          </a>
+        </div>
 
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                   style="background-color: var(--accent-soft); color: var(--accent);">
-                <i class="fa-regular fa-clock"></i>
+        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Renderizado dinámico por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO POR INDUSTRIA)
+         ====================================================================== -->
+    <section id="faq" class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 space-y-2.5">
+          <span class="inline-block px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider"
+                style="background-color: var(--accent-soft); color: var(--accent);">
+            Preguntas Frecuentes
+          </span>
+          <h2 class="font-extrabold text-2xl sm:text-4xl tracking-tight text-slate-900 dark:text-white">
+            Resolvemos tus dudas antes de visitarnos
+          </h2>
+        </div>
+
+        <div id="faq-accordion" class="space-y-3">
+          <!-- Renderizado dinámico por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         8. UBICACIÓN, INDICADOR DE HORARIO EN VIVO Y MAPA RESPONSIVO
+         ====================================================================== -->
+    <section id="ubicacion" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-slate-200/80 dark:border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+          <div class="lg:col-span-5 bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div class="space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <span class="font-mono text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">Ubicación y Horarios</span>
+                  <h2 class="font-extrabold text-2xl text-slate-900 dark:text-white mt-0.5">Visítanos Hoy</h2>
+                </div>
+                <span id="location-status-pill" class="inline-flex items-center gap-2 px-3 py-1 rounded-full font-mono text-xs font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                  <span id="location-status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="location-status-text">Abierto ahora</span>
+                </span>
               </div>
-              <div class="w-full">
-                <p class="font-bold text-sm text-slate-900 dark:text-white mb-2">Horarios de Atención</p>
-                <div id="weekly-schedule-list" class="space-y-1 text-xs sm:text-sm">
-                  <!-- Renderizado dinámico por JS -->
+
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                     style="background-color: var(--accent-soft); color: var(--accent);">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-sm text-slate-900 dark:text-white">Dirección del Negocio</p>
+                  <p id="location-address" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                    Av. Convención Norte #412, Aguascalientes, Ags.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                     style="background-color: var(--accent-soft); color: var(--accent);">
+                  <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="w-full">
+                  <p class="font-bold text-sm text-slate-900 dark:text-white mb-2">Horarios de Atención</p>
+                  <div id="weekly-schedule-list" class="space-y-1 text-xs sm:text-sm">
+                    <!-- Renderizado dinámico por JS -->
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+              <a id="maps-route-link" href="https://maps.google.com/?q=Aguascalientes,Ags" target="_blank" rel="noopener"
+                 class="btn-brand py-3 px-4 rounded-xl font-bold text-xs text-center inline-flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar
+              </a>
+              <a href="tel:+524491583192"
+                 class="js-phone-href py-3 px-4 rounded-xl font-bold text-xs text-center bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white inline-flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-phone"></i> Llamar
+              </a>
+            </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-            <a id="maps-route-link" href="https://maps.google.com/?q=Aguascalientes,Ags" target="_blank" rel="noopener"
-               class="btn-brand py-3 px-4 rounded-xl font-bold text-xs text-center inline-flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar
-            </a>
-            <a href="tel:+524491583192"
-               class="js-phone-href py-3 px-4 rounded-xl font-bold text-xs text-center bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white inline-flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-phone"></i> Llamar
-            </a>
+          <div class="lg:col-span-7 min-h-[320px] sm:min-h-[400px] rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-200 dark:bg-obsidian-850">
+            <iframe
+              id="google-map-iframe"
+              title="Mapa de ubicación del negocio"
+              class="w-full h-full min-h-[320px] sm:min-h-[400px] border-0 adaptive-map"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Aguascalientes,Ags&output=embed">
+            </iframe>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Mapa Google Responsivo (7 cols) -->
-        <div class="lg:col-span-7 min-h-[320px] sm:min-h-[400px] rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-200 dark:bg-obsidian-850">
-          <iframe
-            id="google-map-iframe"
-            title="Mapa de ubicación del negocio"
-            class="w-full h-full min-h-[320px] sm:min-h-[400px] border-0 adaptive-map"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Aguascalientes,Ags&output=embed">
-          </iframe>
+    <!-- ======================================================================
+         9. FOOTER
+         ====================================================================== -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-10 px-4 sm:px-6 text-xs">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div>
+          <p class="font-extrabold text-white text-base" id="footer-business-name">Servicio Automotriz Martínez</p>
+          <p class="mt-0.5" id="footer-business-desc">Mecánica Especializada y Diagnóstico • Aguascalientes, Ags.</p>
         </div>
+        <p class="font-mono">© <span id="footer-year"></span> Todos los derechos reservados.</p>
       </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- ========================================================================
-       9. FOOTER
-       ======================================================================== -->
-  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-10 px-4 sm:px-6 text-xs">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-      <div>
-        <p class="font-extrabold text-white text-base" id="footer-business-name">Servicio Automotriz Martínez</p>
-        <p class="mt-0.5" id="footer-business-desc">Mecánica Especializada y Diagnóstico • Aguascalientes, Ags.</p>
+    <!-- ======================================================================
+         BOTÓN FLOTANTE DE WHATSAPP (DOBLE ANILLO DE PULSO + BURBUJA CADA 10S)
+         ====================================================================== -->
+    <div id="floating-wa-wrapper" class="fixed bottom-5 right-5 z-50 wa-floating-wrapper flex items-center gap-3 max-w-[calc(100vw-2.5rem)]">
+      <div id="wa-auto-bubble"
+           class="wa-auto-bubble relative bg-white dark:bg-obsidian-850 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 pl-3.5 pr-2 py-2 rounded-2xl shadow-2xl flex items-center gap-2">
+        <a href="#" target="_blank" rel="noopener" class="js-wa-direct text-xs font-extrabold whitespace-nowrap hover:text-emerald-600 dark:hover:text-emerald-400 transition">
+          ¡Escríbenos por WhatsApp! 💬
+        </a>
+        <button type="button" id="wa-bubble-close-btn" aria-label="Cerrar mensaje"
+                class="w-5 h-5 rounded-full hover:bg-slate-100 dark:hover:bg-obsidian-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center text-xs font-bold transition">
+          ×
+        </button>
       </div>
-      <p class="font-mono">© <span id="footer-year"></span> Todos los derechos reservados.</p>
-    </div>
-  </footer>
 
-  <!-- ========================================================================
-       BOTÓN FLOTANTE DE WHATSAPP (DOBLE ANILLO DE PULSO + BURBUJA CADA 10 SEGUNDOS)
-       ======================================================================== -->
-  <div class="fixed bottom-5 right-5 z-50 wa-floating-wrapper flex items-center gap-3">
-    <!-- Burbuja Automática cada 10s (visible 4.5s) con botón de cierre "×" -->
-    <div id="wa-auto-bubble"
-         class="wa-auto-bubble relative bg-white dark:bg-obsidian-850 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 pl-3.5 pr-2 py-2 rounded-2xl shadow-2xl flex items-center gap-2">
-      <a href="#" target="_blank" rel="noopener" class="js-wa-direct text-xs font-extrabold whitespace-nowrap hover:text-emerald-600 dark:hover:text-emerald-400 transition">
-        ¡Escríbenos por WhatsApp! 💬
+      <a href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"
+         class="js-wa-direct relative w-14 h-14 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl transition-transform hover:scale-110 shrink-0"
+         style="background-color: #25D366;">
+        <span class="wa-ring-1 absolute inset-0 rounded-full pointer-events-none" style="background-color: #25D366;"></span>
+        <span class="wa-ring-2 absolute inset-0 rounded-full pointer-events-none" style="background-color: #25D366;"></span>
+        <i class="fa-brands fa-whatsapp relative z-10"></i>
       </a>
-      <button type="button" id="wa-bubble-close-btn" aria-label="Cerrar mensaje"
-              class="w-5 h-5 rounded-full hover:bg-slate-100 dark:hover:bg-obsidian-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center text-xs font-bold transition">
-        ×
+    </div>
+
+    <!-- ======================================================================
+         MODAL DE ACTIVACIÓN COMERCIAL (INTERCEPTA BOTONES EN MODO PROSPECTO)
+         ====================================================================== -->
+    <div id="preview-lock-modal" class="hidden fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 rounded-[2rem] max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5 relative animate-fade-in">
+        <button type="button" id="close-lock-modal" aria-label="Cerrar ventana"
+                class="absolute top-4 right-4 w-8 h-8 rounded-xl bg-slate-100 dark:bg-obsidian-800 text-slate-500 hover:text-slate-900 dark:hover:text-white flex items-center justify-center text-sm transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+            <i class="fa-solid fa-lock"></i> Modo Vista Previa (48h)
+          </span>
+          <h3 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white leading-tight">
+            ¡Así recibirás clientes directo en tu WhatsApp!
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cuando tus clientes presionen este botón en tu página oficial, recibirás su mensaje listo en tu número <strong id="modal-prospect-phone" class="font-mono text-emerald-600 dark:text-emerald-400">449 158 3192</strong>:
+          </p>
+        </div>
+
+        <!-- Resumen del mensaje probado por el prospecto -->
+        <div id="modal-tested-message" class="bg-slate-100 dark:bg-obsidian-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 text-xs text-slate-700 dark:text-slate-300 whitespace-pre-line font-medium max-h-28 overflow-y-auto thin-scroll">
+          Hola, me interesa cotizar un servicio...
+        </div>
+
+        <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+          <li class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>
+            <span>Habilitación inmediata de WhatsApp y llamadas para tus clientes</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>
+            <span>Montaje de tus fotos reales, logotipo y ubicación exacta en mapa</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>
+            <span>Eliminación de marcas de borrador y dominio propio profesional</span>
+          </li>
+        </ul>
+
+        <div class="space-y-2.5 pt-1">
+          <a id="modal-activate-wa-btn" href="#" target="_blank" rel="noopener"
+             class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3.5 px-5 rounded-2xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2 text-sm">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            <span>Activar mi página oficial ahora</span>
+          </a>
+          <button type="button" id="continue-preview-btn"
+                  class="w-full py-2.5 text-xs font-bold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition">
+            Seguir explorando la demostración
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         TOAST NOTIFICATION
+         ====================================================================== -->
+    <div id="toast-notification"
+         class="fixed top-24 right-4 z-50 transform translate-x-[160%] transition-transform duration-300 bg-slate-900 text-white border border-slate-700 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm font-bold max-w-[calc(100vw-2rem)]">
+      <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i class="fa-solid fa-check"></i>
+      </span>
+      <span id="toast-message">Enlace copiado</span>
+    </div>
+
+    <!-- ======================================================================
+         PANEL FLOTANTE "⚡ CAMALEÓN PRO" + GENERADOR DE TOKENS CON CADUCIDAD
+         ====================================================================== -->
+    <div id="camaleon-panel-root" class="fixed bottom-5 left-5 z-50">
+      <div id="camaleon-drawer"
+           class="hidden mb-2.5 w-[310px] max-w-[calc(100vw-2.5rem)] max-h-[78vh] overflow-y-auto thin-scroll bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-xl border border-slate-300 dark:border-slate-700 rounded-3xl p-4 shadow-2xl space-y-3.5 text-slate-900 dark:text-slate-100">
+        
+        <div class="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
+                  style="background-color: var(--accent-soft); color: var(--accent);">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </span>
+            <span class="font-extrabold text-xs">⚡ Camaleón Pro Studio</span>
+          </div>
+          <button type="button" id="close-demo-drawer" class="w-6 h-6 rounded-lg hover:bg-slate-100 dark:hover:bg-obsidian-800 text-slate-400 flex items-center justify-center">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <!-- 1. Selector de las 7 Industrias -->
+        <div>
+          <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">1. Plantilla por Industria (7 Giros)</label>
+          <select id="demo-industry-select"
+                  class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs font-bold focus:outline-none focus:border-brand">
+            <option value="automotive">🔧 Taller Mecánico / Automotriz</option>
+            <option value="locksmith">🔑 Cerrajería 24/7</option>
+            <option value="medical">🦷 Clínica Dental / Salud / Fisio</option>
+            <option value="veterinary">🐾 Clínica Veterinaria y Estética</option>
+            <option value="food">🍰 Pastelería, Cafetería y Comida</option>
+            <option value="home">🔨 Herrería, Aluminio y Hogar</option>
+            <option value="beauty">✂️ Barbería, Estética y Spa</option>
+          </select>
+        </div>
+
+        <!-- 2. Datos del Prospecto -->
+        <div class="space-y-2">
+          <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400">2. Datos del Prospecto</label>
+          <input type="text" id="demo-name-input" placeholder="Nombre del negocio"
+                 class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-brand" />
+          <div class="grid grid-cols-2 gap-1.5">
+            <input type="text" id="demo-phone-input" placeholder="Tel Prospecto"
+                   class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:border-brand" />
+            <input type="text" id="demo-address-input" placeholder="Zona / Ciudad"
+                   class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-brand" />
+          </div>
+        </div>
+
+        <!-- 3. Horario Real y Botones de Simulación -->
+        <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+          <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400">3. Horario y Simulación en Vivo</label>
+          <div class="grid grid-cols-2 gap-1.5">
+            <div>
+              <span class="block text-[10px] text-slate-400">Abre</span>
+              <input type="time" id="demo-open-input" value="09:00"
+                     class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono" />
+            </div>
+            <div>
+              <span class="block text-[10px] text-slate-400">Cierra</span>
+              <input type="time" id="demo-close-input" value="19:00"
+                     class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1 pt-0.5">
+            <button type="button" data-sim="auto" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-200 dark:bg-obsidian-800 hover:opacity-90">Auto Real</button>
+            <button type="button" data-sim="open" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">Abierto</button>
+            <button type="button" data-sim="closing" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">Por cerrar</button>
+            <button type="button" data-sim="opening" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-sky-500/20 text-sky-700 dark:text-sky-300">Por abrir</button>
+            <button type="button" data-sim="closed" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-rose-500/20 text-rose-700 dark:text-rose-300">Cerrado</button>
+          </div>
+        </div>
+
+        <!-- 4. Tema Claro / Oscuro -->
+        <div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
+          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">4. Tema Visual</span>
+          <div class="inline-flex rounded-lg bg-slate-100 dark:bg-obsidian-850 p-0.5 border border-slate-300 dark:border-slate-700">
+            <button type="button" data-theme="light" class="js-demo-theme px-2.5 py-1 rounded-md text-[10px] font-bold transition">☀️ Claro</button>
+            <button type="button" data-theme="dark" class="js-demo-theme px-2.5 py-1 rounded-md text-[10px] font-bold transition">🌙 Oscuro</button>
+          </div>
+        </div>
+
+        <!-- 5. Protección Comercial y Generador de Token -->
+        <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+          <label class="block text-[11px] font-bold text-amber-600 dark:text-amber-400">
+            5. Blindaje Comercial (Token + Bloqueo)
+          </label>
+          <div class="grid grid-cols-2 gap-1.5">
+            <div>
+              <span class="block text-[10px] text-slate-400 mb-0.5">Tu WhatsApp (Ventas)</span>
+              <input type="tel" id="demo-seller-wa-input" placeholder="449XXXXXXX"
+                     class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono focus:outline-none focus:border-brand" />
+            </div>
+            <div>
+              <span class="block text-[10px] text-slate-400 mb-0.5">Caducidad Link</span>
+              <select id="demo-ttl-select"
+                      class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-bold focus:outline-none focus:border-brand">
+                <option value="24">24 horas</option>
+                <option value="48" selected>48 horas</option>
+                <option value="72">72 horas</option>
+                <option value="168">7 días</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" id="copy-clean-url-btn"
+                  class="w-full btn-brand py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5">
+            <span>🔐 Copiar Link Protegido (Token)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón Píldora Compacto -->
+      <button type="button" id="open-demo-drawer"
+              class="bg-slate-900/95 hover:bg-slate-900 text-white border border-slate-700 px-3.5 py-2.5 rounded-full text-xs font-extrabold shadow-2xl flex items-center gap-2 backdrop-blur-md transition hover:scale-105">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <span>⚡ Camaleón Pro</span>
       </button>
     </div>
 
-    <!-- Botón Circular #25D366 con Doble Anillo de Pulso -->
-    <a href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"
-       class="js-wa-direct relative w-14 h-14 rounded-full flex items-center justify-center text-white text-3xl shadow-2xl transition-transform hover:scale-110 shrink-0"
-       style="background-color: #25D366;">
-      <span class="wa-ring-1 absolute inset-0 rounded-full pointer-events-none" style="background-color: #25D366;"></span>
-      <span class="wa-ring-2 absolute inset-0 rounded-full pointer-events-none" style="background-color: #25D366;"></span>
-      <i class="fa-brands fa-whatsapp relative z-10"></i>
-    </a>
   </div>
 
   <!-- ========================================================================
-       TOAST NOTIFICATION (SIN ALERT)
-       ======================================================================== -->
-  <div id="toast-notification"
-       class="fixed top-24 right-4 z-50 transform translate-x-[160%] transition-transform duration-300 bg-slate-900 text-white border border-slate-700 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm font-bold max-w-[calc(100vw-2rem)]">
-    <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-      <i class="fa-solid fa-check"></i>
-    </span>
-    <span id="toast-message">Enlace copiado</span>
-  </div>
-
-  <!-- ========================================================================
-       PANEL FLOTANTE "⚡ CAMALEÓN PRO" + GENERADOR DE LINKS LIMPIOS (?demo=0)
-       ======================================================================== -->
-  <div id="camaleon-panel-root" class="fixed bottom-5 left-5 z-50">
-    <!-- Cajón Expandible Compacto -->
-    <div id="camaleon-drawer"
-         class="hidden mb-2.5 w-[300px] max-w-[calc(100vw-2.5rem)] max-h-[76vh] overflow-y-auto thin-scroll bg-white/95 dark:bg-obsidian-900/95 backdrop-blur-xl border border-slate-300 dark:border-slate-700 rounded-3xl p-4 shadow-2xl space-y-3.5 text-slate-900 dark:text-slate-100">
-      
-      <!-- Encabezado del Panel -->
-      <div class="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
-        <div class="flex items-center gap-2">
-          <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
-                style="background-color: var(--accent-soft); color: var(--accent);">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-          </span>
-          <span class="font-extrabold text-xs">⚡ Camaleón Pro Studio</span>
-        </div>
-        <button type="button" id="close-demo-drawer" class="w-6 h-6 rounded-lg hover:bg-slate-100 dark:hover:bg-obsidian-800 text-slate-400 flex items-center justify-center">
-          <i class="fa-solid fa-xmark text-xs"></i>
-        </button>
-      </div>
-
-      <!-- 1. Selector de las 7 Industrias -->
-      <div>
-        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">1. Plantilla por Industria (7 Giros)</label>
-        <select id="demo-industry-select"
-                class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs font-bold focus:outline-none focus:border-brand">
-          <option value="automotive">🔧 Taller Mecánico / Automotriz</option>
-          <option value="locksmith">🔑 Cerrajería 24/7</option>
-          <option value="medical">🦷 Clínica Dental / Salud / Fisio</option>
-          <option value="veterinary">🐾 Clínica Veterinaria y Estética</option>
-          <option value="food">🍰 Pastelería, Cafetería y Comida</option>
-          <option value="home">🔨 Herrería, Aluminio y Hogar</option>
-          <option value="beauty">✂️ Barbería, Estética y Spa</option>
-        </select>
-      </div>
-
-      <!-- 2. Datos del Prospecto -->
-      <div class="space-y-2">
-        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400">2. Personalizar Negocio</label>
-        <input type="text" id="demo-name-input" placeholder="Nombre del negocio"
-               class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-brand" />
-        <div class="grid grid-cols-2 gap-1.5">
-          <input type="text" id="demo-phone-input" placeholder="WhatsApp 10 díg"
-                 class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:border-brand" />
-          <input type="text" id="demo-address-input" placeholder="Zona / Ciudad"
-                 class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-brand" />
-        </div>
-      </div>
-
-      <!-- 3. Horario Real y Botones de Simulación -->
-      <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
-        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400">3. Horario y Simulación en Vivo</label>
-        <div class="grid grid-cols-2 gap-1.5">
-          <div>
-            <span class="block text-[10px] text-slate-400">Abre</span>
-            <input type="time" id="demo-open-input" value="09:00"
-                   class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono" />
-          </div>
-          <div>
-            <span class="block text-[10px] text-slate-400">Cierra</span>
-            <input type="time" id="demo-close-input" value="19:00"
-                   class="w-full bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono" />
-          </div>
-        </div>
-
-        <!-- 5 Botones de Simulación Rápida -->
-        <div class="flex flex-wrap gap-1 pt-0.5">
-          <button type="button" data-sim="auto" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-200 dark:bg-obsidian-800 hover:opacity-90">Auto Real</button>
-          <button type="button" data-sim="open" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">Abierto</button>
-          <button type="button" data-sim="closing" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">Por cerrar</button>
-          <button type="button" data-sim="opening" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-sky-500/20 text-sky-700 dark:text-sky-300">Por abrir</button>
-          <button type="button" data-sim="closed" class="js-sim-btn px-2 py-1 rounded-lg text-[10px] font-bold bg-rose-500/20 text-rose-700 dark:text-rose-300">Cerrado</button>
-        </div>
-      </div>
-
-      <!-- 4. Tema Claro / Oscuro -->
-      <div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
-        <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">4. Tema Visual</span>
-        <div class="inline-flex rounded-lg bg-slate-100 dark:bg-obsidian-850 p-0.5 border border-slate-300 dark:border-slate-700">
-          <button type="button" data-theme="light" class="js-demo-theme px-2.5 py-1 rounded-md text-[10px] font-bold transition">☀️ Claro</button>
-          <button type="button" data-theme="dark" class="js-demo-theme px-2.5 py-1 rounded-md text-[10px] font-bold transition">🌙 Oscuro</button>
-        </div>
-      </div>
-
-      <!-- 5. Botón Generador de Link Personalizado (Sin Panel ?demo=0) -->
-      <div class="pt-2 border-t border-slate-200 dark:border-slate-800">
-        <button type="button" id="copy-clean-url-btn"
-                class="w-full btn-brand py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5">
-          <span>🔗 Copiar Link Personalizado (Sin Panel)</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Botón Píldora Compacto -->
-    <button type="button" id="open-demo-drawer"
-            class="bg-slate-900/95 hover:bg-slate-900 text-white border border-slate-700 px-3.5 py-2.5 rounded-full text-xs font-extrabold shadow-2xl flex items-center gap-2 backdrop-blur-md transition hover:scale-105">
-      <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-      <span>⚡ Camaleón Pro</span>
-    </button>
-  </div>
-
-  <!-- ========================================================================
-       JAVASCRIPT MODULAR: 7 PLANTILLAS, GALERÍA, HORARIOS Y WHATSAPP EN VIVO
+       JAVASCRIPT MODULAR: 7 PLANTILLAS, TOKEN ENCRIPTADO Y BLOQUEO DE ACTIVACIÓN
        ======================================================================== -->
   <script>
     /**
      * 1. CATÁLOGO MAESTRO DE 7 PLANTILLAS POR INDUSTRIA
-     *    Cada plantilla incluye 4 fotografías estratégicas (1 Hero + 3 Galería),
-     *    paleta de colores, servicios, reseñas, preguntas frecuentes y cotizador propio.
      */
     const INDUSTRY_TEMPLATES = {
       automotive: {
@@ -1264,7 +1370,55 @@
     };
 
     /**
-     * 2. ESTADO REACTIVO CENTRALIZADO
+     * 2. SISTEMA DE TOKEN ENCRIPTADO CON FIRMA Y CADUCIDAD (48H)
+     */
+    const TOKEN_SALT = "CAMALEON_PRO_STUDIO_2026_AGS";
+
+    function computeTokenSignature(str) {
+      let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+      for (let i = 0; i < str.length; i++) {
+        const ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+    }
+
+    function encodePreviewToken(payloadObj) {
+      const rawJson = JSON.stringify(payloadObj);
+      const sig = computeTokenSignature(rawJson + "|" + TOKEN_SALT);
+      const envelope = JSON.stringify({ d: payloadObj, k: sig });
+      const utf8Bytes = new TextEncoder().encode(envelope);
+      let binary = "";
+      utf8Bytes.forEach(b => { binary += String.fromCharCode(b); });
+      return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    }
+
+    function decodePreviewToken(tokenStr) {
+      try {
+        let b64 = tokenStr.replace(/-/g, "+").replace(/_/g, "/");
+        while (b64.length % 4) b64 += "=";
+        const binary = atob(b64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const jsonStr = new TextDecoder().decode(bytes);
+        const parsed = JSON.parse(jsonStr);
+        if (!parsed || !parsed.d || !parsed.k) return { valid: false, reason: "invalid" };
+        const expectedSig = computeTokenSignature(JSON.stringify(parsed.d) + "|" + TOKEN_SALT);
+        if (parsed.k !== expectedSig) return { valid: false, reason: "tampered" };
+        if (parsed.d.e && Date.now() > parsed.d.e) {
+          return { valid: false, reason: "expired", data: parsed.d };
+        }
+        return { valid: true, data: parsed.d };
+      } catch (err) {
+        return { valid: false, reason: "invalid" };
+      }
+    }
+
+    /**
+     * 3. ESTADO REACTIVO CENTRALIZADO
      */
     const STATE = {
       industry: "automotive",
@@ -1275,12 +1429,15 @@
       theme: "dark",
       openTime: "09:00",
       closeTime: "19:00",
-      simMode: "auto", // 'auto' | 'open' | 'closing' | 'opening' | 'closed'
-      cart: { cake1: 1, cake2: 0, cake3: 0, cake4: 0 }
+      simMode: "auto",
+      cart: { cake1: 1, cake2: 0, cake3: 0, cake4: 0 },
+      isClientPreview: false,
+      expiresAt: 0,
+      sellerPhone: ""
     };
 
     /**
-     * 3. FALLBACK AUTOMÁTICO DE IMÁGENES (SIN BASE64, USANDO PLACEHOLD.CO CON COLOR DEL GIRO)
+     * 4. FALLBACK AUTOMÁTICO DE IMÁGENES
      */
     function getIndustryFallbackUrl(label) {
       const tpl = INDUSTRY_TEMPLATES[STATE.industry] || INDUSTRY_TEMPLATES.automotive;
@@ -1291,7 +1448,7 @@
     }
 
     /**
-     * 4. MOTOR DINÁMICO DE HORARIOS EN TIEMPO REAL (4 ESTADOS)
+     * 5. MOTOR DINÁMICO DE HORARIOS EN TIEMPO REAL (4 ESTADOS)
      */
     function parseMinutes(hhmm) {
       if (!hhmm || !hhmm.includes(":")) return 9 * 60;
@@ -1303,7 +1460,6 @@
       const openM = parseMinutes(STATE.openTime);
       const closeM = parseMinutes(STATE.closeTime);
 
-      // Simulaciones manuales desde el panel demo
       if (STATE.simMode === "open") {
         return { state: "open", label: `Abierto ahora • Cierra a las ${STATE.closeTime}` };
       }
@@ -1317,7 +1473,6 @@
         return { state: "closed", label: `Cerrado • Agenda cita (Abre ${STATE.openTime})` };
       }
 
-      // Cálculo real según reloj del dispositivo
       const now = new Date();
       const nowM = now.getHours() * 60 + now.getMinutes();
 
@@ -1401,7 +1556,6 @@
       locPill.className = style.locPill;
       locDot.className = style.locDot;
 
-      // Renderizar tabla semanal sincronizada
       const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
       const todayIdx = (new Date().getDay() + 6) % 7;
       const rangeStr = `${STATE.openTime} – ${STATE.closeTime}`;
@@ -1419,7 +1573,67 @@
     }
 
     /**
-     * 5. TEMAS (CLARO/OSCURO), COLORES Y NOTIFICACIÓN TOAST
+     * 6. BLOQUEO DE VISTA PREVIA, CUENTA REGRESIVA Y ENLACE DE ACTIVACIÓN
+     */
+    function buildSellerActivationHref(customText) {
+      const sellerDigits = (STATE.sellerPhone || "").replace(/\D/g, "").slice(-10);
+      const msg = customText || `Hola Camaleón Pro Studio, acabo de revisar la vista previa de *${STATE.name}* y quiero activar mi página web oficial.`;
+      if (sellerDigits.length === 10) {
+        return `https://wa.me/52${sellerDigits}?text=${encodeURIComponent(msg)}`;
+      }
+      return `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    }
+
+    function openPreviewActivationModal(testedMsg) {
+      document.getElementById("modal-prospect-phone").textContent = formatPhonePretty(STATE.phone);
+      const msgBox = document.getElementById("modal-tested-message");
+      msgBox.textContent = testedMsg || buildWhatsAppMessageText();
+      document.getElementById("modal-activate-wa-btn").href = buildSellerActivationHref();
+      document.getElementById("preview-lock-modal").classList.remove("hidden");
+    }
+
+    function updateProposalCountdown() {
+      if (!STATE.isClientPreview || !STATE.expiresAt) return;
+      const remaining = STATE.expiresAt - Date.now();
+      if (remaining <= 0) {
+        showBlockedScreen("expired", { n: STATE.name, s: STATE.sellerPhone });
+        return;
+      }
+      const totalMins = Math.floor(remaining / 60000);
+      const hrs = Math.floor(totalMins / 60);
+      const mins = totalMins % 60;
+      const el = document.getElementById("proposal-countdown");
+      if (el) el.textContent = `⏱️ Expira en ${hrs}h ${String(mins).padStart(2, "0")}m`;
+    }
+
+    function showBlockedScreen(reason, payloadData = {}) {
+      document.getElementById("site-shell").classList.add("hidden");
+      const screen = document.getElementById("token-blocked-screen");
+      screen.classList.remove("hidden");
+
+      STATE.name = payloadData.n || "tu negocio";
+      STATE.sellerPhone = payloadData.s || "";
+
+      const iconEl = document.getElementById("blocked-icon");
+      const titleEl = document.getElementById("blocked-title");
+      const descEl = document.getElementById("blocked-desc");
+      const ctaBtn = document.getElementById("blocked-cta-btn");
+
+      if (reason === "expired") {
+        iconEl.className = "fa-solid fa-hourglass-end";
+        titleEl.textContent = `La muestra para ${STATE.name} ha expirado`;
+        descEl.textContent = "Este enlace de demostración temporal cumplió su vigencia. Escríbenos por WhatsApp para reactivarlo o publicar tu sitio web oficial.";
+        ctaBtn.href = buildSellerActivationHref(`Hola Camaleón Pro Studio, la vista previa de *${STATE.name}* expiró y me interesa activar mi página web.`);
+      } else {
+        iconEl.className = "fa-solid fa-shield-halved";
+        titleEl.textContent = "Enlace de vista previa no válido";
+        descEl.textContent = "Este enlace fue alterado o requiere un token de acceso autorizado por Camaleón Pro Studio.";
+        ctaBtn.href = buildSellerActivationHref("Hola Camaleón Pro Studio, me gustaría solicitar una demostración web para mi negocio.");
+      }
+    }
+
+    /**
+     * 7. TEMAS (CLARO/OSCURO), COLORES Y NOTIFICACIÓN TOAST
      */
     function hexToRgba(hex, alpha) {
       const clean = hex.replace("#", "");
@@ -1495,10 +1709,9 @@
     }
 
     /**
-     * 6. RENDERIZADO DE PLANTILLA ACTIVA (HERO, GALERÍA, SERVICIOS, COTIZADOR)
+     * 8. RENDERIZADO DE PLANTILLA ACTIVA
      */
     function loadIndustryTemplate(key, overrides = {}) {
-      // Compatibilidad si alguien usa ?giro=crafts
       const normalizedKey = key === "crafts" ? "home" : key;
       const tpl = INDUSTRY_TEMPLATES[normalizedKey] || INDUSTRY_TEMPLATES.automotive;
 
@@ -1513,7 +1726,6 @@
       setTheme(overrides.theme || tpl.theme, false);
       applyBrandTokens(tpl.accent, tpl.accentHover, tpl.accentContrast);
 
-      // Sincronizar inputs del Panel Demo
       document.getElementById("demo-industry-select").value = normalizedKey;
       document.getElementById("demo-name-input").value = STATE.name;
       document.getElementById("demo-phone-input").value = STATE.phone;
@@ -1521,7 +1733,6 @@
       document.getElementById("demo-open-input").value = STATE.openTime;
       document.getElementById("demo-close-input").value = STATE.closeTime;
 
-      // Actualizar Hero y Bento Visual
       document.getElementById("brand-icon").className = `fa-solid ${tpl.icon}`;
       document.getElementById("wa-mock-avatar").className = `fa-solid ${tpl.icon}`;
       document.getElementById("hero-pill-text").textContent = tpl.pillText;
@@ -1546,7 +1757,6 @@
         document.getElementById(`metric-${i + 1}-lbl`).textContent = m.lbl;
       });
 
-      // Renderizar 4 Tarjetas de Servicios
       document.getElementById("services-grid").innerHTML = tpl.services.map(s => `
         <div class="bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:border-brand transition group">
           <div>
@@ -1580,7 +1790,6 @@
         });
       });
 
-      // Renderizar Galería de Muestra: Tu Negocio en Acción (3 Tarjetas Estratégicas)
       document.getElementById("gallery-grid").innerHTML = tpl.gallery.map((g, idx) => `
         <div class="bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition group flex flex-col justify-between">
           <div>
@@ -1590,13 +1799,11 @@
                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none"></div>
 
-              <!-- Categoría Izquierda -->
               <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-[11px] font-bold text-white backdrop-blur-md"
                     style="background-color: rgba(15, 23, 42, 0.78); border: 1px solid rgba(255,255,255,0.12);">
                 ${g.category}
               </span>
 
-              <!-- Etiqueta Sutil Derecha: "Espacio para tu foto" -->
               <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/75 backdrop-blur-md text-white/95 border border-white/15 text-[10px] font-mono font-semibold">
                 <i class="fa-solid fa-camera text-[9px]" style="color: var(--accent);"></i>
                 <span>Espacio para tu foto #${idx + 1}</span>
@@ -1618,10 +1825,8 @@
         </div>
       `).join("");
 
-      // Renderizar Widget Cotizador / Carrito / Agendador
       renderSmartWidget(tpl);
 
-      // Renderizar 3 Reseñas de Google Maps
       document.getElementById("reviews-grid").innerHTML = tpl.reviews.map(r => `
         <div class="bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 space-y-3">
           <div class="flex items-center justify-between">
@@ -1642,7 +1847,6 @@
         </div>
       `).join("");
 
-      // Renderizar Preguntas Frecuentes (Acordeón)
       const faqEl = document.getElementById("faq-accordion");
       faqEl.innerHTML = tpl.faqs.map((f, idx) => `
         <div class="faq-item ${idx === 0 ? 'open' : ''} bg-white dark:bg-obsidian-850 border border-slate-200 dark:border-slate-800 rounded-2xl">
@@ -1670,7 +1874,7 @@
     }
 
     /**
-     * 7. RENDERIZADO DEL COTIZADOR / CARRITO / AGENDADOR POR INDUSTRIA
+     * 9. RENDERIZADO DEL COTIZADOR / CARRITO / AGENDADOR
      */
     function renderSmartWidget(tpl) {
       document.getElementById("widget-tag").textContent = tpl.widgetTag;
@@ -1681,13 +1885,12 @@
       const serviceOptions = tpl.services.map(s => `<option value="${s.title}">${s.title}</option>`).join("");
 
       if (STATE.industry === "food") {
-        // Carrito Interactivo Real para Pastelería / Comida con cálculo de subtotal en MXN
         fieldsBox.innerHTML = `
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input type="text" id="w-client-name" placeholder="Tu nombre (Ej. Sofía)"
-                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand" />
+                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand" />
             <select id="w-delivery-select"
-                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
               <option value="Recoger en sucursal">Recoger en sucursal</option>
               <option value="Envío a domicilio">Envío a domicilio</option>
             </select>
@@ -1733,13 +1936,12 @@
           });
         });
       } else if (STATE.industry === "veterinary") {
-        // Selector de Mascota + Servicio + Horario para Veterinaria
         fieldsBox.innerHTML = `
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input type="text" id="w-client-name" placeholder="Tu nombre y nombre de mascota"
-                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand" />
+                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand" />
             <select id="w-pet-type"
-                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
               <option value="Perro 🐶">Mascota: Perro 🐶</option>
               <option value="Gato 🐱">Mascota: Gato 🐱</option>
               <option value="Otra mascota 🐾">Otra mascota 🐾</option>
@@ -1747,11 +1949,11 @@
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <select id="w-service-select"
-                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
               ${serviceOptions}
             </select>
             <select id="w-slot-select"
-                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
               <option value="Hoy mismo">Hoy mismo</option>
               <option value="Mañana por la mañana">Mañana por la mañana</option>
               <option value="Mañana por la tarde">Mañana por la tarde</option>
@@ -1760,7 +1962,6 @@
           </div>
         `;
       } else {
-        // Campos específicos para Automotriz, Cerrajería, Salud, Hogar y Belleza
         let detailPlaceholder = "Marca y modelo (Ej. Nissan Versa 2021)";
         let slotHtml = `
           <option value="Hoy mismo">Hoy mismo</option>
@@ -1801,16 +2002,16 @@
         fieldsBox.innerHTML = `
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input type="text" id="w-client-name" placeholder="Tu nombre"
-                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand" />
+                   class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand" />
             <select id="w-service-select"
-                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                    class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
               ${serviceOptions}
             </select>
           </div>
           <input type="text" id="w-detail-input" placeholder="${detailPlaceholder}"
-                 class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand" />
+                 class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand" />
           <select id="w-slot-select"
-                  class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand">
+                  class="w-full bg-slate-50 dark:bg-obsidian-850 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-base sm:text-sm focus:outline-none focus:border-brand">
             ${slotHtml}
           </select>
         `;
@@ -1898,6 +2099,9 @@
       document.getElementById("footer-business-name").textContent = STATE.name;
       document.getElementById("footer-business-desc").textContent = `${STATE.tagline} • ${STATE.address}`;
 
+      const proposalNameEl = document.getElementById("proposal-biz-name");
+      if (proposalNameEl) proposalNameEl.textContent = STATE.name;
+
       const prettyPhone = formatPhonePretty(STATE.phone);
       const cleanDigits = (STATE.phone || "4491583192").replace(/\D/g, "").slice(-10);
 
@@ -1918,41 +2122,81 @@
     }
 
     /**
-     * 8. INICIALIZACIÓN DE EVENTOS, BURBUJA WHATSAPP CADA 10S Y PANEL DEMO
+     * 10. INICIALIZACIÓN DE EVENTOS, VALIDACIÓN DE TOKEN Y PANEL DEMO
      */
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("footer-year").textContent = new Date().getFullYear();
 
-      // Leer parámetros de URL (?giro=...&nombre=...&tel=...&dir=...&abre=...&cierra=...&tema=...&demo=0)
       const params = new URLSearchParams(window.location.search);
-      const rawGiro = params.get("giro");
-      const initialGiro = (rawGiro === "crafts" ? "home" : rawGiro);
-      const validGiro = INDUSTRY_TEMPLATES[initialGiro] ? initialGiro : "automotive";
+      const tokenParam = params.get("p");
+      const legacyDemoOff = params.get("demo") === "0";
 
-      const overrides = {};
-      if (params.get("nombre")) overrides.name = params.get("nombre");
-      if (params.get("tel")) overrides.phone = params.get("tel");
-      if (params.get("dir")) overrides.address = params.get("dir");
-      if (params.get("abre")) overrides.openTime = params.get("abre");
-      if (params.get("cierra")) overrides.closeTime = params.get("cierra");
+      // Recuperar teléfono de ventas guardado en localStorage (Modo Estudio)
+      try {
+        const savedSellerWa = localStorage.getItem("camaleon_seller_wa") || "";
+        STATE.sellerPhone = savedSellerWa;
+        document.getElementById("demo-seller-wa-input").value = savedSellerWa;
+      } catch (e) {}
 
-      const savedTheme = (() => {
-        try { return localStorage.getItem("camaleon_studio_theme"); } catch (e) { return null; }
-      })();
-      if (params.get("tema")) overrides.theme = params.get("tema");
-      else if (savedTheme) overrides.theme = savedTheme;
-
-      loadIndustryTemplate(validGiro, overrides);
-
-      // Ocultar Panel Demo si el cliente abre el enlace limpio (?demo=0)
-      if (params.get("demo") === "0") {
-        document.getElementById("camaleon-panel-root").style.display = "none";
+      // Si se intenta abrir sin panel (?demo=0) sin un token firmado (?p=...), bloquear acceso
+      if (legacyDemoOff && !tokenParam) {
+        showBlockedScreen("invalid");
+        return;
       }
 
-      // Actualizar estado horario cada 30 segundos en tiempo real
+      if (tokenParam) {
+        const decoded = decodePreviewToken(tokenParam);
+        if (!decoded.valid) {
+          showBlockedScreen(decoded.reason, decoded.data || {});
+          return;
+        }
+
+        // Token válido: activar modo vista previa protegida para prospecto
+        const d = decoded.data;
+        STATE.isClientPreview = true;
+        STATE.expiresAt = d.e || 0;
+        STATE.sellerPhone = d.s || "";
+
+        document.getElementById("camaleon-panel-root").style.display = "none";
+        document.getElementById("preview-proposal-bar").classList.remove("hidden");
+
+        loadIndustryTemplate(d.g || "automotive", {
+          name: d.n,
+          phone: d.p,
+          address: d.a,
+          openTime: d.o,
+          closeTime: d.c,
+          theme: d.t
+        });
+
+        updateProposalCountdown();
+        setInterval(updateProposalCountdown, 30000);
+      } else {
+        // Modo Estudio (Sin token): control total para el creador
+        const rawGiro = params.get("giro");
+        const initialGiro = (rawGiro === "crafts" ? "home" : rawGiro);
+        const validGiro = INDUSTRY_TEMPLATES[initialGiro] ? initialGiro : "automotive";
+
+        const overrides = {};
+        if (params.get("nombre")) overrides.name = params.get("nombre");
+        if (params.get("tel")) overrides.phone = params.get("tel");
+        if (params.get("dir")) overrides.address = params.get("dir");
+        if (params.get("abre")) overrides.openTime = params.get("abre");
+        if (params.get("cierra")) overrides.closeTime = params.get("cierra");
+
+        const savedTheme = (() => {
+          try { return localStorage.getItem("camaleon_studio_theme"); } catch (e) { return null; }
+        })();
+        if (params.get("tema")) overrides.theme = params.get("tema");
+        else if (savedTheme) overrides.theme = savedTheme;
+
+        loadIndustryTemplate(validGiro, overrides);
+      }
+
+      // Actualizar estado horario cada 30 segundos
       setInterval(renderScheduleStatus, 30000);
 
-      // Burbuja Automática de WhatsApp cada 10 segundos (visible durante 4.5s)
+      // Burbuja Automática de WhatsApp cada 10 segundos
       const waBubble = document.getElementById("wa-auto-bubble");
       const waCloseBtn = document.getElementById("wa-bubble-close-btn");
       let bubbleHideTimeout = null;
@@ -1990,9 +2234,48 @@
         setTheme(STATE.theme === "dark" ? "light" : "dark", true);
       });
 
-      // Enviar Cotización / Pedido por WhatsApp
+      // Interceptar botones de contacto si es Vista Previa de Prospecto (?p=...)
       document.getElementById("widget-send-btn").addEventListener("click", () => {
-        window.open(buildWaHref(buildWhatsAppMessageText()), "_blank", "noopener");
+        const msg = buildWhatsAppMessageText();
+        if (STATE.isClientPreview) {
+          openPreviewActivationModal(msg);
+          return;
+        }
+        window.open(buildWaHref(msg), "_blank", "noopener");
+      });
+
+      document.querySelectorAll(".js-wa-direct").forEach(link => {
+        link.addEventListener("click", (e) => {
+          if (STATE.isClientPreview) {
+            e.preventDefault();
+            openPreviewActivationModal(`Hola ${STATE.name}, vi su página web y me gustaría pedir información.`);
+          }
+        });
+      });
+
+      document.querySelectorAll(".js-phone-href").forEach(link => {
+        link.addEventListener("click", (e) => {
+          if (STATE.isClientPreview) {
+            e.preventDefault();
+            openPreviewActivationModal(`Llamada directa al ${formatPhonePretty(STATE.phone)} (${STATE.name})`);
+          }
+        });
+      });
+
+      // Controles del Modal de Activación y Cinta Borrador
+      document.getElementById("proposal-activate-btn").addEventListener("click", () => {
+        openPreviewActivationModal(buildWhatsAppMessageText());
+      });
+      document.getElementById("close-lock-modal").addEventListener("click", () => {
+        document.getElementById("preview-lock-modal").classList.add("hidden");
+      });
+      document.getElementById("continue-preview-btn").addEventListener("click", () => {
+        document.getElementById("preview-lock-modal").classList.add("hidden");
+      });
+      document.getElementById("preview-lock-modal").addEventListener("click", (e) => {
+        if (e.target.id === "preview-lock-modal") {
+          document.getElementById("preview-lock-modal").classList.add("hidden");
+        }
       });
 
       // Controles Panel Demo Flotante
@@ -2036,6 +2319,11 @@
         renderScheduleStatus();
       });
 
+      document.getElementById("demo-seller-wa-input").addEventListener("input", (e) => {
+        STATE.sellerPhone = e.target.value.replace(/\D/g, "").slice(-10);
+        try { localStorage.setItem("camaleon_seller_wa", STATE.sellerPhone); } catch (err) {}
+      });
+
       document.querySelectorAll(".js-sim-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           STATE.simMode = btn.getAttribute("data-sim");
@@ -2049,20 +2337,28 @@
         });
       });
 
-      // Copiar Link Limpio Personalizado (?demo=0)
+      // Generar y Copiar Link Protegido con Token (?p=...)
       document.getElementById("copy-clean-url-btn").addEventListener("click", () => {
         const base = window.location.origin + window.location.pathname;
-        const p = new URLSearchParams();
-        p.set("giro", STATE.industry);
-        p.set("nombre", STATE.name);
-        p.set("tel", STATE.phone.replace(/\D/g, "").slice(-10));
-        p.set("dir", STATE.address);
-        p.set("abre", STATE.openTime);
-        p.set("cierra", STATE.closeTime);
-        p.set("tema", STATE.theme);
-        p.set("demo", "0");
+        const ttlHours = parseInt(document.getElementById("demo-ttl-select").value, 10) || 48;
+        const sellerDigits = (document.getElementById("demo-seller-wa-input").value || STATE.sellerPhone || "")
+          .replace(/\D/g, "")
+          .slice(-10);
 
-        copyTextSafe(`${base}?${p.toString()}`, "¡Link limpio copiado! Listo para enviar al cliente");
+        const payload = {
+          g: STATE.industry,
+          n: STATE.name,
+          p: STATE.phone.replace(/\D/g, "").slice(-10),
+          a: STATE.address,
+          o: STATE.openTime,
+          c: STATE.closeTime,
+          t: STATE.theme,
+          e: Date.now() + ttlHours * 3600 * 1000,
+          s: sellerDigits
+        };
+
+        const token = encodePreviewToken(payload);
+        copyTextSafe(`${base}?p=${token}`, `🔐 Link protegido (${ttlHours}h) copiado al portapapeles`);
       });
     });
   </script>
