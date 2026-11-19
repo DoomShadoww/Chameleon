@@ -227,7 +227,7 @@
   <div id="site-shell">
 
     <!-- ======================================================================
-         1. HEADER STICKY GLASSMORPHIC + INDICADOR DE HORARIO + CINTA BORRADOR
+1. HEADER STICKY GLASSMORPHIC + INDICADOR DE HORARIO + CINTA BORRADOR
          ====================================================================== -->
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-white/85 dark:bg-obsidian-900/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
       <!-- Cinta de Propuesta Comercial (Visible solo en enlaces de prospecto ?p=...) -->
@@ -331,7 +331,7 @@
     </header>
 
     <!-- ======================================================================
-         2. HERO BENTO VISUAL DE VANGUARDIA (TEXTO + FOTOGRAFÍA ENMARCADA)
+2. HERO BENTO VISUAL DE VANGUARDIA (TEXTO + FOTOGRAFÍA ENMARCADA)
          ====================================================================== -->
     <section class="relative hero-bento-bg bg-grid-pattern pt-8 pb-12 sm:pt-14 sm:pb-20 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -423,7 +423,7 @@
     </section>
 
     <!-- ======================================================================
-         3. COTIZADOR / AGENDADOR / CARRITO INTELIGENTE + WHATSAPP EN VIVO
+3. COTIZADOR / AGENDADOR / CARRITO INTELIGENTE + WHATSAPP EN VIVO
          ====================================================================== -->
     <section id="cotizador" class="py-10 sm:py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -497,7 +497,7 @@
     </section>
 
     <!-- ======================================================================
-         4. SECCIÓN DE SERVICIOS (4 TARJETAS CON ETIQUETAS Y SELECCIÓN DIRECTA)
+4. SECCIÓN DE SERVICIOS (4 TARJETAS CON ETIQUETAS Y SELECCIÓN DIRECTA)
          ====================================================================== -->
     <section id="servicios" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -521,7 +521,7 @@
     </section>
 
     <!-- ======================================================================
-         5. GALERÍA DE MUESTRA: TU NEGOCIO EN ACCIÓN
+5. GALERÍA DE MUESTRA: TU NEGOCIO EN ACCIÓN
          ====================================================================== -->
     <section id="galeria" class="py-16 sm:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -550,7 +550,7 @@
     </section>
 
     <!-- ======================================================================
-         6. SECCIÓN DE RESEÑAS VERIFICADAS EN GOOGLE MAPS
+6. SECCIÓN DE RESEÑAS VERIFICADAS EN GOOGLE MAPS
          ====================================================================== -->
     <section id="resenas" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-b border-slate-200/80 dark:border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -581,7 +581,7 @@
     </section>
 
     <!-- ======================================================================
-         7. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO POR INDUSTRIA)
+7. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO POR INDUSTRIA)
          ====================================================================== -->
     <section id="faq" class="py-16 sm:py-20">
       <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -602,7 +602,7 @@
     </section>
 
     <!-- ======================================================================
-         8. UBICACIÓN, INDICADOR DE HORARIO EN VIVO Y MAPA RESPONSIVO
+8. UBICACIÓN, INDICADOR DE HORARIO EN VIVO Y MAPA RESPONSIVO
          ====================================================================== -->
     <section id="ubicacion" class="py-16 sm:py-20 bg-white dark:bg-obsidian-900 border-t border-slate-200/80 dark:border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -674,7 +674,7 @@
     </section>
 
     <!-- ======================================================================
-         9. FOOTER
+9. FOOTER
          ====================================================================== -->
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-10 px-4 sm:px-6 text-xs">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
@@ -859,10 +859,27 @@
           </div>
         </div>
 
-        <!-- 5. Protección Comercial y Generador de Token -->
+        <!-- 5. Color de Marca Libre -->
+        <div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-800">
+          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">5. Color de Marca</span>
+          <div class="flex items-center gap-1.5">
+            <label for="demo-color-input"
+                   class="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-obsidian-850 border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1 cursor-pointer">
+              <input type="color" id="demo-color-input" value="#f59e0b"
+                     class="w-5 h-5 rounded border-0 bg-transparent p-0 cursor-pointer" />
+              <span id="demo-color-hex" class="font-mono text-[10px] font-bold uppercase">#F59E0B</span>
+            </label>
+            <button type="button" id="demo-color-reset" title="Restaurar color de plantilla"
+                    class="px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-200 dark:bg-obsidian-800 hover:opacity-85 transition">
+              Original
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Protección Comercial y Generador de Token -->
         <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
           <label class="block text-[11px] font-bold text-amber-600 dark:text-amber-400">
-            5. Blindaje Comercial (Token + Bloqueo)
+6. Blindaje Comercial (Token + Bloqueo)
           </label>
           <div class="grid grid-cols-2 gap-1.5">
             <div>
@@ -904,7 +921,7 @@
        ======================================================================== -->
   <script>
     /**
-     * 1. CATÁLOGO MAESTRO DE 7 PLANTILLAS POR INDUSTRIA
+- 1. CATÁLOGO MAESTRO DE 7 PLANTILLAS POR INDUSTRIA
      */
     const INDUSTRY_TEMPLATES = {
       automotive: {
@@ -1370,7 +1387,7 @@
     };
 
     /**
-     * 2. SISTEMA DE TOKEN ENCRIPTADO CON FIRMA Y CADUCIDAD (48H)
+- 2. SISTEMA DE TOKEN ENCRIPTADO CON FIRMA Y CADUCIDAD (48H)
      */
     const TOKEN_SALT = "CAMALEON_PRO_STUDIO_2026_AGS";
 
@@ -1418,7 +1435,7 @@
     }
 
     /**
-     * 3. ESTADO REACTIVO CENTRALIZADO
+- 3. ESTADO REACTIVO CENTRALIZADO
      */
     const STATE = {
       industry: "automotive",
@@ -1427,6 +1444,7 @@
       phone: "",
       address: "",
       theme: "dark",
+      customAccent: "",
       openTime: "09:00",
       closeTime: "19:00",
       simMode: "auto",
@@ -1437,18 +1455,20 @@
     };
 
     /**
-     * 4. FALLBACK AUTOMÁTICO DE IMÁGENES
+- 4. FALLBACK AUTOMÁTICO DE IMÁGENES
      */
     function getIndustryFallbackUrl(label) {
       const tpl = INDUSTRY_TEMPLATES[STATE.industry] || INDUSTRY_TEMPLATES.automotive;
-      const bgHex = tpl.accent.replace("#", "");
-      const txtHex = tpl.accentContrast.replace("#", "");
+      const activeAccent = STATE.customAccent || tpl.accent;
+      const activeContrast = STATE.customAccent ? getContrastHex(STATE.customAccent) : tpl.accentContrast;
+      const bgHex = activeAccent.replace("#", "");
+      const txtHex = activeContrast.replace("#", "");
       const cleanLabel = encodeURIComponent(label || tpl.name);
       return `https://placehold.co/900x600/${bgHex}/${txtHex}?text=${cleanLabel}`;
     }
 
     /**
-     * 5. MOTOR DINÁMICO DE HORARIOS EN TIEMPO REAL (4 ESTADOS)
+- 5. MOTOR DINÁMICO DE HORARIOS EN TIEMPO REAL (4 ESTADOS)
      */
     function parseMinutes(hhmm) {
       if (!hhmm || !hhmm.includes(":")) return 9 * 60;
@@ -1573,7 +1593,7 @@
     }
 
     /**
-     * 6. BLOQUEO DE VISTA PREVIA, CUENTA REGRESIVA Y ENLACE DE ACTIVACIÓN
+- 6. BLOQUEO DE VISTA PREVIA, CUENTA REGRESIVA Y ENLACE DE ACTIVACIÓN
      */
     function buildSellerActivationHref(customText) {
       const sellerDigits = (STATE.sellerPhone || "").replace(/\D/g, "").slice(-10);
@@ -1633,7 +1653,7 @@
     }
 
     /**
-     * 7. TEMAS (CLARO/OSCURO), COLORES Y NOTIFICACIÓN TOAST
+- 7. TEMAS (CLARO/OSCURO), COLORES Y NOTIFICACIÓN TOAST
      */
     function hexToRgba(hex, alpha) {
       const clean = hex.replace("#", "");
@@ -1642,6 +1662,39 @@
       const g = parseInt(clean.substring(2, 4), 16);
       const b = parseInt(clean.substring(4, 6), 16);
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function darkenHex(hex, amount = 0.14) {
+      const clean = hex.replace("#", "");
+      if (clean.length !== 6) return hex;
+      const r = Math.max(0, Math.round(parseInt(clean.substring(0, 2), 16) * (1 - amount)));
+      const g = Math.max(0, Math.round(parseInt(clean.substring(2, 4), 16) * (1 - amount)));
+      const b = Math.max(0, Math.round(parseInt(clean.substring(4, 6), 16) * (1 - amount)));
+      return `#${[r, g, b].map(v => v.toString(16).padStart(2, "0")).join("")}`;
+    }
+
+    function getContrastHex(hex) {
+      const clean = hex.replace("#", "");
+      if (clean.length !== 6) return "#090d16";
+      const r = parseInt(clean.substring(0, 2), 16) / 255;
+      const g = parseInt(clean.substring(2, 4), 16) / 255;
+      const b = parseInt(clean.substring(4, 6), 16) / 255;
+      const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      return lum > 0.55 ? "#090d16" : "#ffffff";
+    }
+
+    function syncColorPickerUI(hex) {
+      const input = document.getElementById("demo-color-input");
+      const label = document.getElementById("demo-color-hex");
+      if (input && /^#[0-9a-fA-F]{6}$/.test(hex)) input.value = hex;
+      if (label) label.textContent = hex.toUpperCase();
+    }
+
+    function applyCustomAccentColor(hex) {
+      if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+      STATE.customAccent = hex.toLowerCase();
+      applyBrandTokens(STATE.customAccent, darkenHex(STATE.customAccent, 0.14), getContrastHex(STATE.customAccent));
+      syncColorPickerUI(STATE.customAccent);
     }
 
     function applyBrandTokens(accent, hover, contrast) {
@@ -1709,7 +1762,7 @@
     }
 
     /**
-     * 8. RENDERIZADO DE PLANTILLA ACTIVA
+- 8. RENDERIZADO DE PLANTILLA ACTIVA
      */
     function loadIndustryTemplate(key, overrides = {}) {
       const normalizedKey = key === "crafts" ? "home" : key;
@@ -1724,7 +1777,13 @@
       STATE.closeTime = overrides.closeTime || "19:00";
 
       setTheme(overrides.theme || tpl.theme, false);
-      applyBrandTokens(tpl.accent, tpl.accentHover, tpl.accentContrast);
+      if (overrides.accent && /^#[0-9a-fA-F]{6}$/.test(overrides.accent)) {
+        applyCustomAccentColor(overrides.accent);
+      } else {
+        STATE.customAccent = "";
+        applyBrandTokens(tpl.accent, tpl.accentHover, tpl.accentContrast);
+        syncColorPickerUI(tpl.accent);
+      }
 
       document.getElementById("demo-industry-select").value = normalizedKey;
       document.getElementById("demo-name-input").value = STATE.name;
@@ -1874,7 +1933,7 @@
     }
 
     /**
-     * 9. RENDERIZADO DEL COTIZADOR / CARRITO / AGENDADOR
+- 9. RENDERIZADO DEL COTIZADOR / CARRITO / AGENDADOR
      */
     function renderSmartWidget(tpl) {
       document.getElementById("widget-tag").textContent = tpl.widgetTag;
@@ -2122,7 +2181,7 @@
     }
 
     /**
-     * 10. INICIALIZACIÓN DE EVENTOS, VALIDACIÓN DE TOKEN Y PANEL DEMO
+- 10. INICIALIZACIÓN DE EVENTOS, VALIDACIÓN DE TOKEN Y PANEL DEMO
      */
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("footer-year").textContent = new Date().getFullYear();
@@ -2166,7 +2225,8 @@
           address: d.a,
           openTime: d.o,
           closeTime: d.c,
-          theme: d.t
+          theme: d.t,
+          accent: d.x
         });
 
         updateProposalCountdown();
@@ -2183,6 +2243,7 @@
         if (params.get("dir")) overrides.address = params.get("dir");
         if (params.get("abre")) overrides.openTime = params.get("abre");
         if (params.get("cierra")) overrides.closeTime = params.get("cierra");
+        if (params.get("color")) overrides.accent = params.get("color");
 
         const savedTheme = (() => {
           try { return localStorage.getItem("camaleon_studio_theme"); } catch (e) { return null; }
@@ -2337,6 +2398,20 @@
         });
       });
 
+      // Selector libre de Color de Marca
+      document.getElementById("demo-color-input").addEventListener("input", (e) => {
+        applyCustomAccentColor(e.target.value);
+        setTheme(STATE.theme, false);
+      });
+
+      document.getElementById("demo-color-reset").addEventListener("click", () => {
+        const tpl = INDUSTRY_TEMPLATES[STATE.industry] || INDUSTRY_TEMPLATES.automotive;
+        STATE.customAccent = "";
+        applyBrandTokens(tpl.accent, tpl.accentHover, tpl.accentContrast);
+        syncColorPickerUI(tpl.accent);
+        setTheme(STATE.theme, false);
+      });
+
       // Generar y Copiar Link Protegido con Token (?p=...)
       document.getElementById("copy-clean-url-btn").addEventListener("click", () => {
         const base = window.location.origin + window.location.pathname;
@@ -2356,6 +2431,7 @@
           e: Date.now() + ttlHours * 3600 * 1000,
           s: sellerDigits
         };
+        if (STATE.customAccent) payload.x = STATE.customAccent;
 
         const token = encodePreviewToken(payload);
         copyTextSafe(`${base}?p=${token}`, `🔐 Link protegido (${ttlHours}h) copiado al portapapeles`);
